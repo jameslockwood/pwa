@@ -8,12 +8,27 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, './dist')
+    sourceMapFilename: '[file].map'
+  },
+  devtool: 'source-map',
+  module: {
+    loaders: [
+      {
+        loader: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
+    ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'commons',
-      filename: 'commons.js',
+      filename: '[name].bundle.js',
       minChunks: 2
     })
   ]

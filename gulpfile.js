@@ -16,15 +16,15 @@ gulp.task('server', callback => {
 
   let config = Object.create(webpackConfig);
   config.devtool = 'eval';
+  // following required for inline reloads
+  config.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/');
 
   new WebpackDevServer(webpack(config))
     .listen(8080, 'localhost', function(err) {
       if (err) {
         throw new gutil.PluginError('webpack-dev-server', err);
       }
-      gutil.log('Running webpack-dev-server at', 'http://localhost:8080/');
     });
-
 });
 
 gulp.task('clean', () => {

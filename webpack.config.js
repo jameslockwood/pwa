@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, './src'),
@@ -8,6 +10,7 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
+    publicPath: './',
     sourceMapFilename: '[file].map'
   },
   devtool: 'source-map',
@@ -16,13 +19,18 @@ module.exports = {
       {
         loader: 'babel-loader',
         test: /\.js$/,
-        exclude: /node_modules/,
+        include: path.resolve(__dirname, './src'),
         query: {
           presets: ['es2015', 'react']
         }
       },
-      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
-      { test: /\.css$/, loader: 'style-loader!css-loader' }
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'less-loader']
+        })
+      }
     ]
   },
   plugins: [
@@ -30,6 +38,10 @@ module.exports = {
       name: 'commons',
       filename: '[name].bundle.js',
       minChunks: 2
-    })
+    }),
+    new HtmlWebpackPlugin({
+      template: 'index.html'
+    }),
+    new ExtractTextPlugin('[name].css')
   ]
 };

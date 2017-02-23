@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import time from './time';
+import css from './styles.css';
 
 function component() {
   var element = document.createElement('div');

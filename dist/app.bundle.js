@@ -1816,7 +1816,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(113)("./" + name);
+            __webpack_require__(114)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -14681,6 +14681,35 @@ module.exports = function(module) {
 "use strict";
 
 
+var _lodash = __webpack_require__(113);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _time = __webpack_require__(111);
+
+var _time2 = _interopRequireDefault(_time);
+
+var _styles = __webpack_require__(112);
+
+var _styles2 = _interopRequireDefault(_styles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function component() {
+  var element = document.createElement('div');
+  element.innerHTML = _lodash2.default.join(['Hello', 'webpack', _time2.default.now()], ' ');
+  return element;
+}
+
+document.body.appendChild(component());
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -14698,13 +14727,13 @@ exports.default = {
 };
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31793,10 +31822,10 @@ exports.default = {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(114), __webpack_require__(109)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(115), __webpack_require__(109)(module)))
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -32031,11 +32060,11 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 113;
+webpackContext.id = 114;
 
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports) {
 
 var g;
@@ -32062,34 +32091,12 @@ module.exports = g;
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+module.exports = __webpack_require__(110);
 
-
-var _lodash = __webpack_require__(112);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _time = __webpack_require__(110);
-
-var _time2 = _interopRequireDefault(_time);
-
-var _styles = __webpack_require__(111);
-
-var _styles2 = _interopRequireDefault(_styles);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function component() {
-  var element = document.createElement('div');
-  element.innerHTML = _lodash2.default.join(['Hello', 'webpack', _time2.default.now()], ' ');
-  return element;
-}
-
-document.body.appendChild(component());
 
 /***/ })
-],[115]);
+],[116]);
 //# sourceMappingURL=app.bundle.js.map

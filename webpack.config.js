@@ -48,7 +48,8 @@ module.exports = {
       {
         host: 'localhost',
         port: 3000,
-        proxy: 'http://localhost:8080/' // same as webpack dev server
+        proxy: 'http://localhost:8080/', // same as webpack dev server
+        open: false // prevent browser from opening automatically
       },
       {
         reload: false // webpack dev server handles this

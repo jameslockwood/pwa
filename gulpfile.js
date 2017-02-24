@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const gutil = require('gulp-util');
 const del = require('del');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
@@ -12,9 +11,9 @@ gulp.task('build', ['clean'], () => {
     .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('server', callback => {
+gulp.task('server', () => {
 
-  let config = Object.create(webpackConfig);
+  const config = Object.create(webpackConfig);
   config.devtool = 'eval';
   config.entry.app.unshift(
     'webpack-dev-server/client?http://localhost:8080/', // inline reloads
@@ -24,11 +23,7 @@ gulp.task('server', callback => {
 
   new WebpackDevServer(webpack(config), {
     hot: true
-  }).listen(8080, 'localhost', function(err) {
-    if (err) {
-      throw new gutil.PluginError('webpack-dev-server', err);
-    }
-  });
+  }).listen(8080);
 
 });
 

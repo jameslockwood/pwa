@@ -1,11 +1,9 @@
-import _ from 'lodash';
-import time from './time';
-import css from './styles.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Clock from './clock';
+import './styles.css';
 
-function component() {
-  var element = document.createElement('div');
-  element.innerHTML = _.join(['Hello', 'webpack', time.now()], ' ');
-  return element;
-}
-
-document.body.appendChild(component());
+ReactDOM.render(
+  <Clock />,
+  document.getElementById('root')
+);

@@ -1,14 +1,24 @@
 module.exports = {
-    "extends": "standard",
-    "plugins": [
-        "standard",
-        "promise"
-    ],
-    "rules": {
-        "semi": 0,
-        "no-multiple-empty-lines": 0,
-        "padded-blocks": 0,
-        "no-trailing-spaces": 0,
-        "space-before-function-paren": 0
+  'extends': ['airbnb'],
+  'rules': {
+    'semi': 'off',
+    'no-multiple-empty-lines': 'off',
+    'padded-blocks': 'off',
+    'no-trailing-spaces': 'off',
+    'space-before-function-paren': 'off',
+    'no-unused-vars': 'warn',
+    'comma-dangle': ['error', 'never'],
+    'react/jsx-filename-extension': ['error', {
+      'extensions': ['.js', '.jsx']
+    }]
+  },
+  'env': {
+    'browser': true
+  },
+  'parserOptions': {
+    'ecmaFeatures': {
+      'jsx': true,
+      'modules': true
     }
+  }
 };

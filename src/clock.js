@@ -3,12 +3,10 @@ import React from 'react';
 class Clock extends React.Component {
 
   constructor(props) {
-
     super(props);
     this.state = {
       date: new Date()
     };
-
   }
 
   componentDidMount() {
@@ -19,13 +17,12 @@ class Clock extends React.Component {
     clearInterval(this.timerID);
   }
 
+  instanceProperty = 'hey';
+
   foo = (e) => {
     this.instanceProperty += ' hey';
     window.console.log(e);
   }
-
-  instanceProperty = 'hey';
-
 
   tick() {
     this.setState({

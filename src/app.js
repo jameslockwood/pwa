@@ -4,6 +4,10 @@ import Clock from './clock';
 import './styles.css';
 
 ReactDOM.render(
-  <Clock />,
+  <div>
+    <Clock />
+    <Clock />
+    <Clock />
+  </div>,
   document.getElementById('root')
 );

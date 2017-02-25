@@ -10,7 +10,8 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'react/jsx-filename-extension': ['error', {
       'extensions': ['.js', '.jsx']
-    }]
+    }],
+    'strict': 0
   },
   'env': {
     'browser': true
@@ -20,5 +21,6 @@ module.exports = {
       'jsx': true,
       'modules': true
     }
-  }
+  },
+  'parser': 'babel-eslint'
 };

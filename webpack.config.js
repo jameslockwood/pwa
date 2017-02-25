@@ -22,7 +22,7 @@ module.exports = {
         test: /\.js$/,
         include: path.resolve(__dirname, './src'),
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', 'stage-0']
         }
       },
       {
@@ -49,7 +49,7 @@ module.exports = {
         host: 'localhost',
         port: 3000,
         proxy: 'http://localhost:8080/', // same as webpack dev server
-        open: false // prevent browser from opening automatically,
+        open: false // prevent browser from opening automatically
       },
       {
         reload: false // webpack dev server handles this

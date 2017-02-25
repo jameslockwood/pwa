@@ -8,13 +8,24 @@ class Clock extends React.Component {
     this.state = {
       date: new Date()
     };
+
   }
 
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 1000)
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  foo = (e) => {
+    this.instanceProperty += ' hey';
+    window.console.log(e);
+  }
+
+  instanceProperty = 'hey';
+
 
   tick() {
     this.setState({
@@ -25,7 +36,7 @@ class Clock extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello World</h1>
+        <h1 onClick={this.foo}>Hello World</h1>
         <p>The time is now {this.state.date.toLocaleTimeString()}</p>
       </div>
     );

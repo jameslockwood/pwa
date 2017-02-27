@@ -8,11 +8,16 @@ module.exports = {
     'space-before-function-paren': 'off',
     'no-unused-vars': 'warn',
     'comma-dangle': ['error', 'never'],
+    'strict': 'off',
+    'object-curly-spacing' : 'off',
+    'indent': ['error', 4],
     'react/jsx-filename-extension': ['error', {
-      'extensions': ['.js', '.jsx']
+        'extensions': ['.js', '.jsx']
     }],
-    'jsx-a11y/no-static-element-interactions': 'off',
-    'strict': 'off'
+    'react/jsx-curly-spacing': 'off',
+    'react/jsx-indent': 'off',
+    'react/jsx-indent-props': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off'
   },
   'env': {
     'browser': true

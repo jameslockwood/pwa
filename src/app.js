@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Clock from './clock';
 import Items from './items';
+import Form from './form';
 import './styles.css';
 
 const list = [
@@ -18,6 +19,8 @@ ReactDOM.render(
     <Clock />
     <hr />
     <Items list={list} />
+    <hr />
+    <Form />
   </div>,
   document.getElementById('root')
 );

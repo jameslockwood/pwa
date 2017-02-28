@@ -43,7 +43,7 @@ module.exports = {
             port: config.browserSync.port,
 
             // same as webpack dev server
-            proxy: `http://${config.host}:${config.port + config.path}`,
+            proxy: `${config.scheme}://${config.host}:${config.port + config.path}`,
 
             // prevent browser from opening automatically
             open: false

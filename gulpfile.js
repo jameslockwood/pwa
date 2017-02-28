@@ -16,9 +16,10 @@ gulp.task('build', ['clean'], () => gulp
 gulp.task('server', () => {
     const webpackConf = Object.create(webpackConfig);
     webpackConf.devtool = 'eval';
-    webpackConf.entry.app.unshift(`webpack-dev-server/client?http://${config.host}:${config.port}/`);
+    webpackConf.entry.app.unshift(`webpack-dev-server/client?${config.scheme}://${config.host}:${config.port}/`);
     new WebpackDevServer(webpack(webpackConf), {
-        publicPath: config.path
+        publicPath: config.path,
+        https: config.https
     })
         .listen(config.port, config.host, (err) => {
             if (err) {

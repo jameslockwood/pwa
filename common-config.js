@@ -2,6 +2,9 @@ const pkg = require('./package.json');
 
 module.exports = {
 
+    // serve over http or https
+    https: false,
+
     // local host
     host: 'localhost',
 
@@ -21,6 +24,11 @@ module.exports = {
         source: './src',
         build: './dist',
         test: './test'
+    },
+
+    // returns correct url schema
+    get scheme() {
+        return (this.https ? 'https' : 'http');
     }
 
 };

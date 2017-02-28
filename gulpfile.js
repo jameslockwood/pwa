@@ -3,6 +3,7 @@ const gutil = require('gulp-util');
 const del = require('del');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
+const pkg = require('./package.json');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.config.js');
 
@@ -16,7 +17,9 @@ gulp.task('server', () => {
     const config = Object.create(webpackConfig);
     config.devtool = 'eval';
     config.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/');
-    new WebpackDevServer(webpack(config))
+    new WebpackDevServer(webpack(config), {
+        publicPath: `/${pkg.name}/`
+    })
         .listen(8080, 'localhost', (err) => {
             if (err) {
                 throw new gutil.PluginError('webpack-dev-server', err);

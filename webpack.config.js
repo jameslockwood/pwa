@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const pkg = require('./package.json');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
@@ -42,7 +43,7 @@ module.exports = {
             port: 3000,
 
             // same as webpack dev server
-            proxy: 'http://localhost:8080/',
+            proxy: `http://localhost:8080/${pkg.name}/`,
 
             // prevent browser from opening automatically
             open: false

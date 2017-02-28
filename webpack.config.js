@@ -3,10 +3,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const pkg = require('./package.json');
+const config = require('./common-config.js');
 
 module.exports = {
-    context: path.resolve(__dirname, './src'),
+    context: path.resolve(__dirname, config.directories.source),
     entry: {
         app: ['./app.js']
     },
@@ -21,7 +21,7 @@ module.exports = {
             {
                 loader: 'babel-loader',
                 test: /\.js$/,
-                include: path.resolve(__dirname, './src'),
+                include: path.resolve(__dirname, config.directories.source),
                 query: {
                     presets: ['es2015', 'react', 'stage-0']
                 }
@@ -39,11 +39,11 @@ module.exports = {
         new HtmlWebpackPlugin({template: 'index.html'}),
         new ExtractTextPlugin('[name].css'),
         new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 3000,
+            host: config.host,
+            port: config.browserSync.port,
 
             // same as webpack dev server
-            proxy: `http://localhost:8080/${pkg.name}/`,
+            proxy: `http://${config.host}:${config.port + config.path}`,
 
             // prevent browser from opening automatically
             open: false

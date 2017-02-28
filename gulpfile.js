@@ -32,4 +32,6 @@ gulp.task('clean', () => del([
     // '!dist/foo.json'
 ]));
 
+// aliases
+gulp.task('serve', ['server']);
 gulp.task('default', ['build']);

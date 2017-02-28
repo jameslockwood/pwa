@@ -26,7 +26,7 @@ module.exports = {
         test: './test'
     },
 
-    // returns correct url schema
+    // returns correct url scheme
     get scheme() {
         return (this.https ? 'https' : 'http');
     }

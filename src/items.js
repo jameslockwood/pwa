@@ -1,20 +1,33 @@
 import React from 'react';
 
 function Items(props) {
-    const list = props.list.map(i => (
-        <li key={i.id}>{i.value}</li>
-    ));
+    const list = [];
+    props.list.forEach((i) => {
+        if (props.parentsOnly && !i.children) {
+            return;
+        }
+        if (props.filter && i.value.toLowerCase().indexOf(props.filter.toLowerCase()) === -1) {
+            return;
+        }
+        list.push(<li key={i.id}>
+            {i.value} {i.children ? '(children)' : ''}
+        </li>);
+    });
     return (
         <ul>{list}</ul>
     )
 }
 
 Items.defaultProps = {
-    list: []
+    list: [],
+    filter: '',
+    parentsOnly: false
 };
 
 Items.propTypes = {
-    list: React.PropTypes.arrayOf(React.PropTypes.object)
+    list: React.PropTypes.arrayOf(React.PropTypes.object),
+    filter: React.PropTypes.string,
+    parentsOnly: React.PropTypes.bool
 };
 
 export default Items;

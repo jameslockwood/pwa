@@ -1,6 +1,7 @@
 body{
-  background: pink;
+  color: #333;
+  font-family: Helvetica;
   h1{
-    color: red;
+    color: green;
   }
 }

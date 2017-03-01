@@ -1,26 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Clock from './clock';
-import Items from './items';
-import Form from './form';
+import People from './people';
 import './styles.css';
 
 const list = [
-  { id: 1, value: 'James' },
-  { id: 2, value: 'Joanne' },
-  { id: 3, value: 'John' },
-  { id: 4, value: 'Jack' },
-  { id: 5, value: 'Susan' },
-  { id: 6, value: 'John' }
+    { id: 0, value: 'Wendy', children: false, age: 40 },
+    { id: 1, value: 'James', children: false, age: 31 },
+    { id: 2, value: 'Joanne', children: true, age: 33 },
+    { id: 3, value: 'John', children: true, age: 72 },
+    { id: 4, value: 'Jack', children: false, age: 2 },
+    { id: 5, value: 'Susan', children: true, age: 61 },
+    { id: 6, value: 'John', children: true, age: 35 }
 ];
 
 ReactDOM.render(
-  <div>
-    <Clock />
-    <hr />
-    <Items list={list} />
-    <hr />
-    <Form />
-  </div>,
-  document.getElementById('root')
+    <People list={list} />,
+    document.getElementById('root')
 );

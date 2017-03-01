@@ -2,37 +2,29 @@ import React from 'react';
 
 class Form extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: props.name,
-            gender: 'bloke'
-        };
+    onFilterChange = (e) => {
+        this.props.onFilterChange(e.target.value);
     }
 
-    onNameChange = (e) => {
-        this.setState({name: e.target.value});
-    }
-
-    onSexChange = (e) => {
-        this.setState({gender: e.target.value});
+    onParentsToggle = (e) => {
+        this.props.onParentsOnlyChange(e.target.checked);
     }
 
     render() {
         return (
             <form>
-                <label htmlFor="name">
-                    Name
-                    <input id="name" value={this.state.name} title="name" onChange={this.onNameChange} />
+                <label htmlFor="filter">
+                    Filter
+                    <input id="filter" value={this.props.filter} title="filter" onChange={this.onFilterChange} />
                 </label>
                 <label htmlFor="gender">
-                    Gender
-                    <select id="gender" value={this.state.gender} onChange={this.onSexChange}>
-                        <option value="lass">Lass</option>
-                        <option value="bloke">Bloke</option>
-                        <option value="unsure">Unsure</option>
-                        <option value="both">Both</option>
-                    </select>
+                    Parents Only
+                    <input
+                        type="checkbox"
+                        defaultChecked={this.props.parentsOnly}
+                        title="Parents Only"
+                        onChange={this.onParentsToggle}
+                    />
                 </label>
             </form>
         );
@@ -41,11 +33,17 @@ class Form extends React.Component {
 }
 
 Form.defaultProps = {
-    name: ''
+    filter: '',
+    parentsOnly: false,
+    onFilterChange: () => {},
+    onParentsOnlyChange: () => {}
 };
 
 Form.propTypes = {
-    name: React.PropTypes.string
+    filter: React.PropTypes.string,
+    parentsOnly: React.PropTypes.bool,
+    onFilterChange: React.PropTypes.func,
+    onParentsOnlyChange: React.PropTypes.func
 };
 
 export default Form;

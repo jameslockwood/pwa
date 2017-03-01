@@ -37,7 +37,7 @@ class People extends React.Component {
                 />
                 <Items
                     list={this.props.list}
-                    filter={this.state.filter.toLowerCase()}
+                    filter={this.state.filter}
                     parentsOnly={this.state.parentsOnly}
                 />
             </div>

@@ -10,7 +10,7 @@ const list = [
     { id: 3, value: 'John', children: true, age: 72 },
     { id: 4, value: 'Jack', children: false, age: 2 },
     { id: 5, value: 'Susan', children: true, age: 61 },
-    { id: 6, value: 'John', children: true, age: 35 }
+    { id: 6, value: 'John', children: true, age: 35}
 ];
 
 ReactDOM.render(

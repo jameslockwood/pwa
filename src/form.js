@@ -18,7 +18,7 @@ class Form extends React.Component {
                     <input id="filter" value={this.props.filter} title="filter" onChange={this.onFilterChange} />
                 </label>
                 <label htmlFor="gender">
-                    Parents Only
+                      Parents Only
                     <input
                         type="checkbox"
                         defaultChecked={this.props.parentsOnly}

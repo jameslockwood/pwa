@@ -20,12 +20,11 @@ gulp.task('server', () => {
     new WebpackDevServer(webpack(webpackConf), {
         publicPath: config.path,
         https: config.https
-    })
-        .listen(config.port, config.host, (err) => {
-            if (err) {
-                throw new gutil.PluginError('webpack-dev-server', err);
-            }
-        });
+    }).listen(config.port, config.host, (err) => {
+        if (err) {
+            throw new gutil.PluginError('webpack-dev-server', err);
+        }
+    });
 });
 
 gulp.task('clean', () => del([

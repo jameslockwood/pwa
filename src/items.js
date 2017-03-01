@@ -26,8 +26,7 @@ Items.defaultProps = {
 
 Items.propTypes = {
     list: React.PropTypes.arrayOf(React.PropTypes.object),
-    filter: React.PropTypes.string,
-    parentsOnly: React.PropTypes.bool
+    filter: React.PropTypes.string
 };
 
 export default Items;

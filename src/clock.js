@@ -1,29 +1,41 @@
 // @flow
-
 import React from 'react';
+
+type Props = {
+  title: string
+};
+
+type State = {
+    date: Date,
+    clicked: bool,
+    timerId: number
+};
 
 class Clock extends React.Component {
 
-    timerId: number = 0;
-    state: Object;
+    props: Props;
+    state: State;
 
     constructor(props: Object) {
         super(props);
         this.state = {
-            date: new Date()
+            clicked: false,
+            date: new Date(),
+            timerId: 0
         };
     }
 
     componentDidMount() {
-        this.timerId = setInterval(() => this.tick(), 1000)
+        this.state.timerId = setInterval(() => this.tick(), 1000)
     }
 
     componentWillUnmount() {
-        clearInterval(this.timerId);
+        clearInterval(this.state.timerId);
     }
 
     foo = (e: Event) => {
-        window.console.log(e);
+        this.state.clicked = true;
+        return e;
     }
 
     tick() {
@@ -33,7 +45,7 @@ class Clock extends React.Component {
     render() {
         return (
             <div>
-                <h1 onClick={this.foo}>Hello World</h1>
+                <h1 onClick={this.foo}>{this.props.title}</h1>
                 <p>The time is now {this.state.date.toLocaleTimeString()}</p>
             </div>
         );

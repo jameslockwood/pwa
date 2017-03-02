@@ -28,7 +28,7 @@ class People extends React.Component {
     render() {
         return (
             <div>
-                <Clock />
+                <Clock title="Hey World" />
                 <Form
                     filter={this.state.filter}
                     parentsOnly={this.state.parentsOnly}

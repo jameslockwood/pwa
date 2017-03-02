@@ -17,6 +17,7 @@ module.exports = {
     'react/jsx-curly-spacing': 'off',
     'react/jsx-indent': 'off',
     'react/jsx-indent-props': 'off',
+    'react/sort-comp': 'off',
     'jsx-a11y/no-static-element-interactions': 'off'
   },
   'env': {

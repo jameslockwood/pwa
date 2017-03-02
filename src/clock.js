@@ -1,8 +1,13 @@
+// @flow
+
 import React from 'react';
 
 class Clock extends React.Component {
 
-    constructor(props) {
+    timerId: number = 0;
+    state: Object;
+
+    constructor(props: Object) {
         super(props);
         this.state = {
             date: new Date()
@@ -14,13 +19,10 @@ class Clock extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.timerID);
+        clearInterval(this.timerId);
     }
 
-    instanceProperty = 'hey';
-
-    foo = (e) => {
-        this.instanceProperty += ' hey';
+    foo = (e: Event) => {
         window.console.log(e);
     }
 

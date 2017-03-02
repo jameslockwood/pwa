@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Clock from './clock';
 import Items from './items';
 import Form from './form';
 
-class People extends React.Component {
+class People extends Component {
 
     constructor(props) {
         super(props);

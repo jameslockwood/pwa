@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 
 type Props = {
   title: string
@@ -11,7 +11,7 @@ type State = {
     timerId: number
 };
 
-class Clock extends React.Component {
+class Clock extends Component {
 
     props: Props;
     state: State;

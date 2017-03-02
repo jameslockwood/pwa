@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Form extends React.Component {
+class Form extends Component {
 
     onFilterChange = (e) => {
         this.props.onFilterChange(e.target.value);

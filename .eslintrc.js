@@ -20,6 +20,9 @@ module.exports = {
     'react/sort-comp': 'off',
     'jsx-a11y/no-static-element-interactions': 'off'
   },
+  "globals": {
+      "$Keys": true
+  },
   'env': {
     'browser': true
   },

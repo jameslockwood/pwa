@@ -9,13 +9,13 @@ function Items(props) {
         if (props.filter && i.value.toLowerCase().indexOf(props.filter.toLowerCase()) === -1) {
             return;
         }
-        list.push(<li key={i.id}>
-            {i.value} {i.children ? '(children)' : ''}
-        </li>);
+        list.push(
+            <li key={i.id}>
+                {i.value} {i.children ? '(children)' : ''}
+            </li>
+        );
     });
-    return (
-        <ul>{list}</ul>
-    )
+    return <ul>{list}</ul>;
 }
 
 Items.defaultProps = {

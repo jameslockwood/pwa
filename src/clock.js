@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 type Props = {
-  title: string
+    title: string
 };
 
 type State = {

@@ -7,8 +7,17 @@ export type Person = {
     id?: number
 };
 
+export type People = Array<Person>;
+
 export type RootState = {
-    people: Array<Person>,
+    people: People,
     filterString: string,
     parentsOnly: bool
 };
+
+export type Action = {
+    type: string,
+    payload?: any,
+    error?: bool,
+    metadata?: any
+}

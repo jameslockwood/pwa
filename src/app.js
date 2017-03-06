@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import People from './people';
-import './styles.css';
+import './styles.less';
 
 const list = [
     { id: 0, value: 'Wendy', children: false, age: 40 },

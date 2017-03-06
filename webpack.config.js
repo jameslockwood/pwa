@@ -33,7 +33,7 @@ module.exports = {
                     presets: ['es2015', 'react', 'stage-0']
                 }
             }, {
-                test: /\.css$/,
+                test: /\.(css|less)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: ['css-loader', 'less-loader']

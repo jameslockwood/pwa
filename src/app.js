@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import People from './people';
+import store from './store';
 import './styles.less';
 
 const list = [

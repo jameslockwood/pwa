@@ -4,7 +4,7 @@ const del = require('del');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
-const config = require('./common-config.js');
+const config = require('./config.js');
 const webpackConfig = require('./webpack.config.js');
 
 gulp.task('build', ['clean'], () => gulp

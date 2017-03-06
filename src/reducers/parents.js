@@ -1,11 +1,10 @@
 // @flow
 
 import ACTION_TYPES from 'src/actions/types';
-import type { ActionToggleParents } from 'src/actions/toggle-parents';
 import type { Action } from 'src/types/core';
 
-function changeFilter(state: bool, action: ActionToggleParents): bool {
-    return !action.payload.parentsOnly;
+function changeFilter(state: bool): bool {
+    return !state;
 }
 
 const reducers = {

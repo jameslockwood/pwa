@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const config = require('./common-config.js');
+const config = require('./config.js');
 
 module.exports = {
     context: path.resolve(__dirname, config.directories.source),

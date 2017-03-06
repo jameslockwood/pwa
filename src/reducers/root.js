@@ -1,3 +1,5 @@
+// @flow
+
 import type { RootState, Action } from 'src/types/core';
 import peopleReducer from './people';
 import filterReducer from './filter';

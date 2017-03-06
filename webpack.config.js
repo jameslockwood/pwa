@@ -15,6 +15,13 @@ module.exports = {
         publicPath: './',
         sourceMapFilename: '[file].map'
     },
+    resolve: {
+        alias: {
+            // allows us to import/require 'src/whatever'
+            src: path.resolve(__dirname, config.directories.source)
+        },
+        extensions: ['.js']
+    },
     devtool: 'source-map',
     module: {
         loaders: [

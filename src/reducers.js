@@ -1,37 +1,51 @@
 // @flow
 
-// enums
-export const ADD_TODO = 'ADD_TODO';
-export const TOGGLE_TODO = 'TOGGLE_TODO';
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
-export const VISIBILITY_FILTERS = {
-    SHOW_ALL: 'SHOW_ALL',
-    SHOW_COMPLETED: 'SHOW_COMPLETED',
-    SHOW_ACTIVE: 'SHOW_ACTIVE'
+import type { RootState } from 'src/types/core';
+import type {
+    Action,
+    ActionAddPerson,
+    ActionChangeFilter,
+    ActionToggleParents
+} from './types/actions';
+import { ADD_PERSON, TOGGLE_PARENTS_ONLY, CHANGE_FILTER } from './actions';
+
+const initialState: RootState = {
+    people: [],
+    filterString: '',
+    parentsOnly: false
 };
 
-// types
-type ActionAddToDo = {
-    type: string,
-    text: string
-};
-type ActionToggleTodo = {
-    type: string,
-    index: number
-};
-type ActionSetVisiblity = {
-    type: string,
-    filter: string
-};
-type VisiblityFilter = $Keys<typeof VISIBILITY_FILTERS>;
+function addPerson(state: RootState, action: ActionAddPerson): RootState {
+    const person = {
+        ...action.payload,
+        id: state.people.length
+    };
+    return {
+        ...state,
+        people: [...state.people, person]
+    };
+}
 
-// creators
-export function addTodo(text: string): ActionAddToDo {
-    return { type: ADD_TODO, text };
+function toggleParentsOnly(state: RootState, action: ActionToggleParents): RootState {
+    return {
+        ...state,
+        parentsOnly: action.payload.parentsOnly
+    };
 }
-export function toggleTodo(index: number): ActionToggleTodo {
-    return { type: TOGGLE_TODO, index };
+
+function changeFilter(state: RootState, action: ActionChangeFilter): RootState {
+    return {
+        ...state,
+        filterString: action.payload.filter
+    };
 }
-export function setVisibilityFilter(filter: VisiblityFilter): ActionSetVisiblity {
-    return { type: SET_VISIBILITY_FILTER, filter };
+
+export default function(state: RootState = initialState, action: Action) {
+    const map = {
+        [ADD_PERSON]: addPerson,
+        [TOGGLE_PARENTS_ONLY]: toggleParentsOnly,
+        [CHANGE_FILTER]: changeFilter
+    };
+    const fn = map[action.type] || (() => state);
+    return fn(state, action);
 }

@@ -2,6 +2,9 @@ const pkg = require('./package.json');
 
 module.exports = {
 
+    // project name
+    name: pkg.name,
+
     // serve over http or https
     https: false,
 

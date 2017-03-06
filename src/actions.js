@@ -1,37 +1,34 @@
 // @flow
+import type {
+    ActionAddPerson,
+    ActionChangeFilter,
+    ActionToggleParents,
+    ActionChangeDropdown
+} from 'src/types/actions';
 
 // enums
-export const ADD_TODO = 'ADD_TODO';
-export const TOGGLE_TODO = 'TOGGLE_TODO';
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
-export const VISIBILITY_FILTERS = {
+export const ADD_PERSON = 'ADD_PERSON';
+export const TOGGLE_PARENTS_ONLY = 'TOGGLE_PARENTS_ONLY';
+export const CHANGE_FILTER = 'CHANGE_FILTER';
+export const CHANGE_DROPDOWN = 'CHANGE_DROPDOWN';
+export const DROPDOWNS = {
     SHOW_ALL: 'SHOW_ALL',
     SHOW_COMPLETED: 'SHOW_COMPLETED',
     SHOW_ACTIVE: 'SHOW_ACTIVE'
 };
 
-// types
-type ActionAddToDo = {
-    type: string,
-    text: string
-};
-type ActionToggleTodo = {
-    type: string,
-    index: number
-};
-type ActionSetVisiblity = {
-    type: string,
-    filter: string
-};
-type VisiblityFilter = $Keys<typeof VISIBILITY_FILTERS>;
+export type AvailableDropdowns = $Keys<typeof DROPDOWNS>;
 
 // creators
-export function addTodo(text: string): ActionAddToDo {
-    return { type: ADD_TODO, text };
+export function addPerson(name: string, age: number, children: boolean): ActionAddPerson {
+    return { type: ADD_PERSON, payload: { name, age, children } };
 }
-export function toggleTodo(index: number): ActionToggleTodo {
-    return { type: TOGGLE_TODO, index };
+export function toggleParentsOnly(parentsOnly: boolean): ActionToggleParents {
+    return { type: TOGGLE_PARENTS_ONLY, payload: { parentsOnly } };
 }
-export function setVisibilityFilter(filter: VisiblityFilter): ActionSetVisiblity {
-    return { type: SET_VISIBILITY_FILTER, filter };
+export function changeFilter(filter: string): ActionChangeFilter {
+    return { type: CHANGE_FILTER, payload: { filter } };
+}
+export function changeDropdown(filter: AvailableDropdowns): ActionChangeDropdown {
+    return { type: CHANGE_DROPDOWN, payload: { filter } };
 }

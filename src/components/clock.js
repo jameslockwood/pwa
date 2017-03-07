@@ -7,7 +7,6 @@ type Props = {
 
 type State = {
     date: Date,
-    clicked: bool,
     timerId: number
 };
 
@@ -19,7 +18,6 @@ class Clock extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
-            clicked: false,
             date: new Date(),
             timerId: 0
         };
@@ -33,11 +31,6 @@ class Clock extends Component {
         clearInterval(this.state.timerId);
     }
 
-    foo = (e: Event) => {
-        this.state.clicked = true;
-        return e;
-    }
-
     tick() {
         this.setState({date: new Date()});
     }
@@ -45,7 +38,7 @@ class Clock extends Component {
     render() {
         return (
             <div>
-                <h1 onClick={this.foo}>{this.props.title}</h1>
+                <h1>{this.props.title}</h1>
                 <p>The time is now {this.state.date.toLocaleTimeString()}</p>
             </div>
         );

@@ -6,12 +6,9 @@ function Items(props) {
         if (props.parentsOnly && !i.children) {
             return;
         }
-        if (props.filter && i.value.toLowerCase().indexOf(props.filter.toLowerCase()) === -1) {
-            return;
-        }
         list.push(
             <li key={i.id}>
-                {i.value} {i.children ? '(children)' : ''}
+                {i.name} - {i.age} {i.children ? '(children)' : ''}
             </li>
         );
     });
@@ -20,13 +17,12 @@ function Items(props) {
 
 Items.defaultProps = {
     list: [],
-    filter: '',
     parentsOnly: false
 };
 
 Items.propTypes = {
-    list: React.PropTypes.arrayOf(React.PropTypes.object),
-    filter: React.PropTypes.string
+    list: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    parentsOnly: React.PropTypes.bool.isRequired
 };
 
 export default Items;

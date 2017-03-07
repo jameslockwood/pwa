@@ -1,20 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import People from './people';
-import store from './store';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './reducers/root';
+import App from './components/root';
+import addPerson from './actions/add-person'; // remove
+
 import './styles.less';
 
-const list = [
-    { id: 0, value: 'Wendy', children: false, age: 40 },
-    { id: 1, value: 'James', children: false, age: 31 },
-    { id: 2, value: 'Joanne', children: true, age: 33 },
-    { id: 3, value: 'John', children: true, age: 72 },
-    { id: 4, value: 'Jack', children: false, age: 2 },
-    { id: 5, value: 'Susan', children: true, age: 61 },
-    { id: 6, value: 'John', children: true, age: 35}
-];
+const store = createStore(reducer);
+store.dispatch(addPerson('James Lockwood', 31, false));
+store.dispatch(addPerson('Wendy Musique', 40, false));
+store.dispatch(addPerson('John Lockwood', 72, true));
+store.dispatch(addPerson('Susan Lockwood', 61, true));
+store.dispatch(addPerson('John Woolley', 35, true));
+store.dispatch(addPerson('Joanne Woolley', 33, true));
+store.dispatch(addPerson('Jack Woolley', 1, false));
+store.subscribe(() => window.console.log(store.getState()));
 
-ReactDOM.render(
-    <People list={list} />,
-    document.getElementById('root')
-);
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)

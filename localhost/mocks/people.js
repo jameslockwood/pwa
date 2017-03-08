@@ -1,44 +1,44 @@
 module.exports = [
     {
-        name: 'James Lockwood',
+        name: 'James Johnson',
         age: 31,
-        parent: false,
+        children: false,
         id: 0
     },
     {
-        name: 'Wendy Musique',
+        name: 'Marilyn Woods',
         age: 40,
-        parent: false,
+        children: false,
         id: 1
     },
     {
-        name: 'John Lockwood',
+        name: 'John Smith',
         age: 72,
-        parent: true,
+        children: true,
         id: 2
     },
     {
-        name: 'Susan Lockwood',
+        name: 'Susan David',
         age: 61,
-        parent: true,
+        children: true,
         id: 3
     },
     {
-        name: 'John Woolley',
+        name: 'William Woolley',
         age: 35,
-        parent: true,
+        children: true,
         id: 4
     },
     {
-        name: 'Joanne Woolley',
+        name: 'Jo Peters',
         age: 33,
-        parent: true,
+        children: true,
         id: 5
     },
     {
-        name: 'Jack Woolley',
+        name: 'Trevor Isaksson',
         age: 1,
-        parent: false,
+        children: false,
         id: 6
     }
 ];

@@ -6,7 +6,10 @@ import filterReducer from './filter';
 import parentsReducer from './parents';
 
 const initialState: RootState = {
-    people: [],
+    people: {
+        list: [],
+        loading: false
+    },
     filterString: '',
     parentsOnly: false
 };

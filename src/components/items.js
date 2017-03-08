@@ -1,6 +1,9 @@
 import React from 'react';
 
 function Items(props) {
+    if (props.loading) {
+        return <span>Loading...</span>;
+    }
     const list = [];
     props.list.forEach((i) => {
         if (props.parentsOnly && !i.children) {
@@ -17,12 +20,14 @@ function Items(props) {
 
 Items.defaultProps = {
     list: [],
-    parentsOnly: false
+    parentsOnly: false,
+    loading: false
 };
 
 Items.propTypes = {
     list: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    parentsOnly: React.PropTypes.bool.isRequired
+    parentsOnly: React.PropTypes.bool.isRequired,
+    loading: React.PropTypes.bool.isRequired
 };
 
 export default Items;

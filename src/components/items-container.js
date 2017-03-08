@@ -1,10 +1,10 @@
 // @flow
 
 import { connect } from 'react-redux';
-import type { RootState, People } from 'src/types/core';
+import type { RootState, PeopleList } from 'src/types/core';
 import Items from './items';
 
-const getPeople = (people: People, filter: string): People => {
+const getPeopleList = (people: PeopleList, filter: string): PeopleList => {
     if (filter.length) {
         return people.filter(
             i => i.name.toLowerCase().indexOf(filter.toLowerCase()
@@ -14,7 +14,8 @@ const getPeople = (people: People, filter: string): People => {
 };
 
 const stateToProps = (state: RootState) => ({
-    list: getPeople(state.people, state.filterString),
+    list: getPeopleList(state.people.list, state.filterString),
+    loading: state.people.loading,
     parentsOnly: state.parentsOnly
 });
 

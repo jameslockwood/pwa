@@ -1,7 +1,6 @@
 const pkg = require('./package.json');
 
 module.exports = {
-
     // project name
     name: pkg.name,
 
@@ -29,9 +28,14 @@ module.exports = {
         test: './test'
     },
 
+    // proxy requests to other destinations
+    // see https://webpack.js.org/configuration/dev-server/#devserver-proxy
+    proxy: {
+        '/foo/bar': 'http://www.google.com'
+    },
+
     // returns correct url scheme
     get scheme() {
-        return (this.https ? 'https' : 'http');
+        return this.https ? 'https' : 'http';
     }
-
 };

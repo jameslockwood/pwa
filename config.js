@@ -1,6 +1,8 @@
 const pkg = require('./package.json');
+const middleware = require('./localhost/middleware.js');
+const proxy = require('./localhost/proxy.js');
 
-module.exports = {
+const config = {
     // project name
     name: pkg.name,
 
@@ -28,14 +30,14 @@ module.exports = {
         test: './test'
     },
 
-    // proxy requests to other destinations
-    // see https://webpack.js.org/configuration/dev-server/#devserver-proxy
-    proxy: {
-        '/foo/bar': 'http://www.google.com'
-    },
+    proxy,
 
     // returns correct url scheme
     get scheme() {
-        return this.https ? 'https' : 'http';
+        return config.https ? 'https' : 'http';
     }
 };
+
+config.middleware = middleware(config);
+
+module.exports = config;

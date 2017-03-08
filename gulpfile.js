@@ -5,12 +5,10 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./config.js');
-const { middleware } = require('./devserver.js');
 const webpackConfig = require('./webpack.config.js');
 
 gulp.task('build', ['clean'], () =>
-    gulp
-        .src('')
+    gulp()
         .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(`${config.directories.build}/`)));
 
@@ -24,7 +22,7 @@ gulp.task('server', () => {
         publicPath: config.path,
         https: config.https,
         proxy: config.proxy,
-        setup: middleware
+        setup: config.middleware
     }).listen(config.port, config.host, (err) => {
         if (err) {
             throw new gutil.PluginError('webpack-dev-server', err);

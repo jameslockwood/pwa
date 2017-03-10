@@ -8,7 +8,7 @@ const config = require('./config.js');
 module.exports = {
     context: path.resolve(__dirname, config.directories.source),
     entry: {
-        main: ['./shell.js']
+        shell: ['./shell.js']
     },
     output: {
         filename: '[name]-bundle.js',
@@ -23,7 +23,7 @@ module.exports = {
         },
         extensions: ['.js']
     },
-    devtool: 'source-map',
+    devtool: 'cheap-eval-source-map',
     module: {
         loaders: [
             {
@@ -55,14 +55,16 @@ module.exports = {
 
         // catch all - anything used in more than one place
         new webpack.optimize.CommonsChunkPlugin({
-            async: 'used-twice',
+            async: 'shared',
             minChunks(module, count) {
                 return count >= 2;
             }
         }),
-
         new HtmlWebpackPlugin({ template: 'index.html' }),
-        new ExtractTextPlugin('[name].css'),
+        new ExtractTextPlugin({
+            filename: '[name].css',
+            allChunks: true
+        }),
         new BrowserSyncPlugin(
             {
                 host: config.host,

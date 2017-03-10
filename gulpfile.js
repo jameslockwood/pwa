@@ -26,7 +26,7 @@ gulp.task('analyze', ['clean'], () => {
 gulp.task('server', () => {
     const webpackConf = Object.create(webpackConfig);
     webpackConf.devtool = 'eval';
-    webpackConf.entry.main.unshift(
+    webpackConf.entry.shell.unshift(
         `webpack-dev-server/client?${config.scheme}://${config.host}:${config.port}/`
     );
     new WebpackDevServer(webpack(webpackConf), {

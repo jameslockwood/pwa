@@ -1,16 +1,17 @@
 module.exports = {
     extends: ['airbnb'],
     rules: {
-        semi: 'off',
+        'semi': 'off',
         'no-multiple-empty-lines': 'off',
         'padded-blocks': 'off',
         'no-trailing-spaces': 'off',
         'space-before-function-paren': 'off',
         'no-unused-vars': 'warn',
         'comma-dangle': ['error', 'never'],
-        strict: 'off',
+        'import/prefer-default-export': 'off',
+        'strict': 'off',
         'object-curly-spacing': 'off',
-        indent: ['error', 4],
+        'indent': ['error', 4],
         'react/jsx-filename-extension': [
             'error',
             {
@@ -24,14 +25,14 @@ module.exports = {
         'jsx-a11y/no-static-element-interactions': 'off'
     },
     globals: {
-        $Keys: true
+        '$Keys': true
     },
     env: {
-        browser: true
+        'browser': true
     },
     parserOptions: {
-        allowImportExportEverywhere: true,
-        ecmaFeatures: {
+        'allowImportExportEverywhere': true,
+        'ecmaFeatures': {
             jsx: true,
             modules: true
         }

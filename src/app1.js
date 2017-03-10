@@ -8,16 +8,16 @@ import createLogger from 'redux-logger';
 import reducer from './reducers/root';
 import App from './components/root';
 import fetchPeopleAction from './actions/fetch-people';
-import './styles.less';
 
 const logger = createLogger();
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
-render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('app-1')
-);
-
-store.dispatch(fetchPeopleAction());
+export const boot = (el) => {
+    store.dispatch(fetchPeopleAction());
+    render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        el
+    );
+};

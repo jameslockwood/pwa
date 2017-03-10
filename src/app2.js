@@ -11,19 +11,17 @@ import App from './components/root';
 import fetchPeopleAction from './actions/fetch-people';
 import toggleParentsAction from './actions/toggle-parents';
 
-import './styles.less';
-
 const logger = createLogger();
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
-render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('app-2')
-);
-
-store.dispatch(fetchPeopleAction());
-store.dispatch(toggleParentsAction());
-
-window.console.log('time is', moment());
+export const boot = (el) => {
+    window.console.log('the time is', moment().toString());
+    store.dispatch(fetchPeopleAction());
+    store.dispatch(toggleParentsAction());
+    render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        el
+    );
+};

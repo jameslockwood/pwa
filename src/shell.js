@@ -1,17 +1,9 @@
 import './styles.less';
 
-import('./app1')
-    .then(() => {
-        window.console.log('loaded app 1');
-    })
-    .catch((err) => {
-        window.console.log('Failed to load app 1', err);
-    });
+import('./app1').then((app) => {
+    app.boot(document.getElementById('app-1'));
+});
 
-import('./app2')
-    .then(() => {
-        window.console.log('loaded app 2');
-    })
-    .catch((err) => {
-        window.console.log('Failed to load app 2', err);
-    });
+import('./app2').then((app) => {
+    app.boot(document.getElementById('app-2'));
+});

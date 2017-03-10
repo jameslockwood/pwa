@@ -8,11 +8,12 @@ const config = require('./config.js');
 module.exports = {
     context: path.resolve(__dirname, config.directories.source),
     entry: {
-        app: ['./app.js']
+        main: ['./shell.js']
     },
     output: {
-        filename: '[name].bundle.js',
-        publicPath: './',
+        filename: '[name]-bundle.js',
+        chunkFilename: '[name]-chunk.js',
+        path: path.resolve(__dirname, config.directories.build),
         sourceMapFilename: '[file].map'
     },
     resolve: {
@@ -30,9 +31,11 @@ module.exports = {
                 test: /\.js$/,
                 include: path.resolve(__dirname, config.directories.source),
                 query: {
-                    presets: ['es2015', 'react', 'stage-0']
+                    presets: ['es2015', 'react', 'stage-0'],
+                    plugins: ['syntax-dynamic-import']
                 }
-            }, {
+            },
+            {
                 test: /\.(css|less)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
@@ -42,21 +45,39 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({name: 'commons', filename: '[name].bundle.js', minChunks: 2}),
-        new HtmlWebpackPlugin({template: 'index.html'}),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'node-modules-static',
+        //     filename: 'node-modules-static.js',
+        //     minChunks(module) {
+        //         return module.context && module.context.indexOf('node_modules') !== -1;
+        //     }
+        // }),
+
+        // catch all - anything used in more than one place
+        new webpack.optimize.CommonsChunkPlugin({
+            async: 'used-twice',
+            minChunks(module, count) {
+                return count >= 2;
+            }
+        }),
+
+        new HtmlWebpackPlugin({ template: 'index.html' }),
         new ExtractTextPlugin('[name].css'),
-        new BrowserSyncPlugin({
-            host: config.host,
-            port: config.browserSync.port,
+        new BrowserSyncPlugin(
+            {
+                host: config.host,
+                port: config.browserSync.port,
 
-            // same as webpack dev server
-            proxy: `${config.scheme}://${config.host}:${config.port + config.path}`,
+                // same as webpack dev server
+                proxy: `${config.scheme}://${config.host}:${config.port + config.path}`,
 
-            // prevent browser from opening automatically
-            open: false
-        }, {
-            // webpack dev server handles this
-            reload: false
-        })
+                // prevent browser from opening automatically
+                open: false
+            },
+            {
+                // webpack dev server handles this
+                reload: false
+            }
+        )
     ]
 };

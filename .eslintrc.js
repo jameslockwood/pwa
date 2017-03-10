@@ -30,6 +30,7 @@ module.exports = {
         browser: true
     },
     parserOptions: {
+        allowImportExportEverywhere: true,
         ecmaFeatures: {
             jsx: true,
             modules: true

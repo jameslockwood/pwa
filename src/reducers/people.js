@@ -1,5 +1,6 @@
 // @flow
 
+import { v4 } from 'uuid';
 import ACTION_TYPES from 'src/actions/types';
 import type { AddPersonAction } from 'src/actions/add-person';
 import type { FetchPeopleAction } from 'src/actions/fetch-people';
@@ -8,7 +9,7 @@ import type { Person, People, Action } from 'src/types/core';
 function addPerson(state: People, action: AddPersonAction): People {
     const person: Person = {
         ...action.payload,
-        id: state.list.length
+        id: v4()
     };
     return {
         ...state,
@@ -36,7 +37,12 @@ const reducers = {
     [ACTION_TYPES.FETCH_PEOPLE_SUCCESS]: populateList
 };
 
-export default function peopleReducer(state: People, action: Action): People {
+const defaultState: People = {
+    loading: false,
+    list: []
+};
+
+export default function peopleReducer(state: People = defaultState, action: Action): People {
     if (reducers[action.type]) {
         return reducers[action.type](state, action);
     }

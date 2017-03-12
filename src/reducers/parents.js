@@ -11,7 +11,7 @@ const reducers = {
     [ACTION_TYPES.TOGGLE_PARENTS]: changeFilter
 };
 
-export default function filterReducer(state: bool, action: Action): bool {
+export default function filterReducer(state: bool = false, action: Action): bool {
     if (reducers[action.type]) {
         return reducers[action.type](state, action);
     }

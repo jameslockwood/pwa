@@ -12,7 +12,7 @@ const reducers = {
     [ACTION_TYPES.CHANGE_FILTER]: changeFilter
 };
 
-export default function filterReducer(state: string, action: Action): string {
+export default function filterReducer(state: string = '', action: Action): string {
     if (reducers[action.type]) {
         return reducers[action.type](state, action);
     }

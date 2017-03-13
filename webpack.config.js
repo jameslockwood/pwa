@@ -63,7 +63,7 @@ module.exports = {
         new HtmlWebpackPlugin({ template: 'index.html' }),
         new ExtractTextPlugin({
             filename: '[name].css',
-            allChunks: true
+            allChunks: false
         }),
         new BrowserSyncPlugin(
             {

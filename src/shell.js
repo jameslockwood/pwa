@@ -1,12 +1,11 @@
 import 'babel-polyfill';
 import './styles.less';
 
-// dynamic import used so we can code-split both apps and load async
+// Application loading flow:
+// 1 - load barebones here in the shell (basic html, css)
+// 2 - main application then asynchronously
+// 3 - from here, application loads different pages async depending on routing.
 
-import('./app1').then((app) => {
-    app.boot(document.getElementById('app-1'));
-});
-
-import('./app2').then((app) => {
-    app.boot(document.getElementById('app-2'));
+import('./app').then((app) => {
+    app.boot(document.getElementById('app'));
 });

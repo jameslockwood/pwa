@@ -30,7 +30,7 @@ const Form = (props: Object) => {
                 Parents Only
                 <input
                     type="checkbox"
-                    id="parents"
+                    name="parents"
                     checked={props.parentsOnly}
                     title="Parents Only"
                     onChange={onParentsChange}

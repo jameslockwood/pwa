@@ -4,7 +4,8 @@ export type Person = {
     name: string,
     age: number,
     children: boolean,
-    id?: number
+    id?: number,
+    local?: boolean
 };
 
 export type PeopleList = Array<Person>;

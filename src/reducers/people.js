@@ -27,7 +27,7 @@ function populateListRequest(state: People): People {
 function populateList(state: People, action: FetchPeopleAction): People {
     return {
         loading: false,
-        list: action.payload.response
+        list: [...state.list, ...action.payload.response]
     };
 }
 

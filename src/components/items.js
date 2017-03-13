@@ -11,7 +11,7 @@ function Items(props) {
         }
         list.push(
             <li key={i.id}>
-                {i.name} - {i.age} {i.children ? '(children)' : ''}
+                {i.name} - {i.age} {i.children ? '(children)' : ''} {i.local ? '(local)' : ''}
             </li>
         );
     });

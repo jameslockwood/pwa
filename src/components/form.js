@@ -3,8 +3,8 @@
 import React from 'react';
 
 const Form = (props: Object) => {
-
     let filterInput;
+    let addInput;
     const onFilterChange = (e) => {
         e.preventDefault();
         props.onFilterChange(filterInput.value);
@@ -12,9 +12,17 @@ const Form = (props: Object) => {
     const onParentsChange = () => {
         props.onParentsToggle();
     };
-
+    const onAddPerson = (e) => {
+        e.preventDefault();
+        const val = addInput.value;
+        if (!val) {
+            return;
+        }
+        props.onAddPerson(val);
+        addInput.value = '';
+    };
     return (
-        <form>
+        <form className={props.loading ? 'form--loading' : ''}>
             <label htmlFor="filter">
                 Filter
                 <input
@@ -37,6 +45,16 @@ const Form = (props: Object) => {
                     onChange={onParentsChange}
                 />
             </label>
+            <br />
+            <label htmlFor="personToAdd">
+                Person To Add
+                <input
+                    ref={(node) => {
+                        addInput = node;
+                    }}
+                />
+            </label>
+            <button onClick={onAddPerson}>Add Person</button>
         </form>
     );
 };
@@ -44,15 +62,21 @@ const Form = (props: Object) => {
 Form.defaultProps = {
     filter: '',
     parentsOnly: false,
+    loading: false,
+    personToAdd: '',
     onFilterChange: () => {},
-    onParentsToggle: () => {}
+    onParentsToggle: () => {},
+    onAddPerson: () => {}
 };
 
 Form.propTypes = {
     filter: React.PropTypes.string.isRequired,
     parentsOnly: React.PropTypes.bool.isRequired,
+    loading: React.PropTypes.bool.isRequired,
+    personToAdd: React.PropTypes.string.isRequired,
     onFilterChange: React.PropTypes.func.isRequired,
-    onParentsToggle: React.PropTypes.func.isRequired
+    onParentsToggle: React.PropTypes.func.isRequired,
+    onAddPerson: React.PropTypes.func.isRequired
 };
 
 export default Form;

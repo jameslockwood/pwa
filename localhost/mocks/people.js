@@ -1,4 +1,6 @@
-const faker = require('faker'); // eslint-disable-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies, no-plusplus */
+
+const faker = require('faker');
 
 const people = [];
 

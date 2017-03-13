@@ -1,21 +1,20 @@
 import React from 'react';
+import ItemsList from './items-list';
 
 function Items(props) {
-    if (props.loading) {
-        return <span>Loading...</span>;
-    }
-    const list = [];
-    props.list.forEach((i) => {
-        if (props.parentsOnly && !i.children) {
-            return;
-        }
-        list.push(
-            <li key={i.id}>
-                {i.name} - {i.age} {i.children ? '(children)' : ''} {i.local ? '(local)' : ''}
-            </li>
-        );
-    });
-    return <ul>{list}</ul>;
+    const nonLocal = props.list.filter(i => !i.local);
+    const local = props.list.filter(i => i.local);
+    return (
+        <div>
+            <ItemsList
+                list={nonLocal}
+                loading={props.loading}
+                parentsOnly={props.parentsOnly}
+                header="Server"
+            />
+            <ItemsList list={local} parentsOnly={props.parentsOnly} header="Client" />
+        </div>
+    );
 }
 
 Items.defaultProps = {

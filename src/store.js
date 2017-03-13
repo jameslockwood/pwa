@@ -1,5 +1,4 @@
 // @flow
-
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
@@ -7,7 +6,6 @@ import type { RootState } from 'src/types/core';
 import reducer from './reducers/root';
 import fetchPeopleAction from './actions/fetch-people';
 import persistanceFactory from './persistance';
-
 
 export const makeStore = (appName: string) => {
     const logger = createLogger();
@@ -21,7 +19,7 @@ export const makeStore = (appName: string) => {
             filterString: state.filterString,
             parentsOnly: state.parentsOnly
         });
-    })
+    });
     return store;
 };
 

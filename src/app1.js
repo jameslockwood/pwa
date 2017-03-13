@@ -10,7 +10,7 @@ const store = makeStore();
 export const boot = (el) => {
     render(
         <Provider store={store}>
-            <App />
+            <App title="App 1" />
         </Provider>,
         el
     );

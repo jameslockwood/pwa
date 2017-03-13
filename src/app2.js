@@ -12,7 +12,7 @@ export const boot = (el) => {
     window.console.log('the time is', moment().toString());
     render(
         <Provider store={store}>
-            <App />
+            <App title="App 2" />
         </Provider>,
         el
     );

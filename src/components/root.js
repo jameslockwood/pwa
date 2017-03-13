@@ -3,11 +3,20 @@ import Clock from './clock';
 import ItemsContainer from './items-container';
 import FormsContainer from './form-container';
 
-const Root = () => (
+const Root = props => (
     <div>
-        <Clock title="Yah World" />
+        <Clock title={props.title} />
         <FormsContainer />
         <ItemsContainer />
     </div>
 );
+
+Root.defaultProps = {
+    title: ''
+};
+
+Root.propTypes = {
+    title: React.PropTypes.string
+};
+
 export default Root;

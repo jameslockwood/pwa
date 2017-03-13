@@ -22,9 +22,9 @@ const Form = (props: Object) => {
     };
     return (
         <form className={props.loading ? 'form--loading' : ''}>
-            <label htmlFor="filter">
+            <label htmlFor="f1">
                 Filter
-                <input id="filter" value={props.filter} title="filter" onChange={onFilterChange} />
+                <input id="f1" value={props.filter} title="f1" onChange={onFilterChange} />
             </label>
             <label htmlFor="parents">
                 Parents Only

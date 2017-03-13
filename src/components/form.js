@@ -3,37 +3,28 @@
 import React from 'react';
 
 const Form = (props: Object) => {
-    let filterInput;
-    let addInput;
     const onFilterChange = (e) => {
         e.preventDefault();
-        props.onFilterChange(filterInput.value);
+        props.onFilterChange(e.target.value);
     };
     const onParentsChange = () => {
         props.onParentsToggle();
     };
-    const onAddPerson = (e) => {
-        e.preventDefault();
-        const val = addInput.value;
-        if (!val) {
-            return;
+    const onInputKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const val = e.target.value;
+            if (!val) {
+                return;
+            }
+            props.onAddPerson(val);
         }
-        props.onAddPerson(val);
-        addInput.value = '';
     };
     return (
         <form className={props.loading ? 'form--loading' : ''}>
             <label htmlFor="filter">
                 Filter
-                <input
-                    id="filter"
-                    value={props.filter}
-                    title="filter"
-                    onChange={onFilterChange}
-                    ref={(node) => {
-                        filterInput = node;
-                    }}
-                />
+                <input id="filter" value={props.filter} title="filter" onChange={onFilterChange} />
             </label>
             <label htmlFor="parents">
                 Parents Only
@@ -47,14 +38,9 @@ const Form = (props: Object) => {
             </label>
             <br />
             <label htmlFor="personToAdd">
-                Person To Add
-                <input
-                    ref={(node) => {
-                        addInput = node;
-                    }}
-                />
+                Add Person
+                <input onKeyPress={onInputKeyPress} />
             </label>
-            <button onClick={onAddPerson}>Add Person</button>
         </form>
     );
 };

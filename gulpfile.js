@@ -5,31 +5,25 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./config.js');
-const webpackConfig = require('./webpack.config.js');
+const webpackConfigDev = require('./webpack.config.js');
+const webpackConfigProd = require('./webpack.config.prod.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-function build(webpackConf) {
+function createBuildTask(webpackConf) {
     gulp
         .src('')
         .pipe(webpackStream(webpackConf, webpack))
         .pipe(gulp.dest(`${config.directories.build}/`));
 }
 
-gulp.task('build', ['clean'], () => build(webpackConfig));
-
-gulp.task('analyze', ['clean'], () => {
-    const webpackConf = Object.create(webpackConfig);
-    webpackConf.plugins.push(new BundleAnalyzerPlugin());
-    return build(webpackConf);
-});
-
-gulp.task('server', () => {
-    const webpackConf = Object.create(webpackConfig);
-    webpackConf.devtool = 'eval';
-    webpackConf.entry.shell.unshift(
-        `webpack-dev-server/client?${config.scheme}://${config.host}:${config.port}/`
-    );
-    new WebpackDevServer(webpack(webpackConf), {
+function createServerTask(webpackConfig, simulateProduction) {
+    const wpConfig = Object.create(webpackConfig);
+    if (!simulateProduction) {
+        wpConfig.entry.shell.unshift(
+            `webpack-dev-server/client?${config.scheme}://${config.host}:${config.port}/`
+        );
+    }
+    new WebpackDevServer(webpack(wpConfig), {
         publicPath: config.path,
         https: config.https,
         proxy: config.proxy,
@@ -39,14 +33,17 @@ gulp.task('server', () => {
             throw new gutil.PluginError('webpack-dev-server', err);
         }
     });
+}
+
+gulp.task('build', ['clean'], () => createBuildTask(webpackConfigDev));
+gulp.task('build-prod', ['clean'], () => createBuildTask(webpackConfigProd));
+gulp.task('server', () => createServerTask(webpackConfigDev));
+gulp.task('server-prod', () => createServerTask(webpackConfigProd, true));
+gulp.task('analyze', ['clean'], () => {
+    const webpackConf = Object.create(webpackConfigDev);
+    webpackConf.plugins.push(new BundleAnalyzerPlugin());
+    return createBuildTask(webpackConf);
 });
-
-gulp.task('clean', () =>
-    del([
-        `${config.directories.build}/**/*`
-        // '!dist/foo.json'
-    ]));
-
-// aliases
+gulp.task('clean', () => del([`${config.directories.build}/**/*`]));
 gulp.task('serve', ['server']);
 gulp.task('default', ['build']);

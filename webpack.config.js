@@ -17,7 +17,7 @@ module.exports = {
     },
     output: {
         filename: '[name]-bundle.js',
-        chunkFilename: '[name]-chunk.js',
+        chunkFilename: '[name]-async-chunk.js',
         path: path.resolve(__dirname, config.directories.build),
         sourceMapFilename: '[file].map'
     },
@@ -32,6 +32,7 @@ module.exports = {
     module: {
         loaders: [
             {
+                // responsible for loading/transpiling our js assets
                 loader: 'babel-loader',
                 test: /\.js$/,
                 include: path.resolve(__dirname, config.directories.source),
@@ -41,6 +42,7 @@ module.exports = {
                 }
             },
             {
+                // responsbile for loading critical path css
                 test: criticalPathCSSRegex,
                 use: critialPathCSSPlugin.extract({
                     fallback: 'style-loader',
@@ -48,6 +50,7 @@ module.exports = {
                 })
             },
             {
+                // responsible for loading the rest of our application css
                 test: /\.(css|less)$/,
                 use: ['style-loader', 'css-loader', 'less-loader'],
                 exclude: criticalPathCSSRegex
@@ -55,24 +58,24 @@ module.exports = {
         ]
     },
     plugins: [
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'node-modules-static',
-        //     filename: 'node-modules-static.js',
-        //     minChunks(module) {
-        //         return module.context && module.context.indexOf('node_modules') !== -1;
-        //     }
-        // }),
-
-        // catch all - anything used in more than one place
+        // bundles any files used in more than one place
         new webpack.optimize.CommonsChunkPlugin({
-            async: 'shared',
+            async: 'shared', // prefixes common async chunk files
             minChunks(module, count) {
                 return count >= 2;
             }
         }),
+
+        // creates our base html tempalte, injects assets
         new HtmlWebpackPlugin({ template: 'index.html' }),
+
+        // extracts our critical path css for StyleExtHtmlWebpackPlugin
         critialPathCSSPlugin,
+
+        // inlines our critical path CSS into index.html
         new StyleExtHtmlWebpackPlugin(criticalPathCSSFilename),
+
+        // for dev only - syncs page over multiple devices during development
         new BrowserSyncPlugin(
             {
                 host: config.host,

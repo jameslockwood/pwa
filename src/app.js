@@ -10,13 +10,12 @@ const store = makeStore('app');
 const Module1 = async(() => import('./pages/app1').then(module => module.default));
 const Module2 = async(() => import('./pages/app2').then(module => module.default));
 
-
 Promise.all([Module1, Module2]).then((values) => {
     console.log('--- modules have finished loading');
 });
 
 const App = () => (
-    <BrowserRouter basename="/fx/" >
+    <BrowserRouter basename="/fx/">
         <div className="app-container">
             <p>Application Loaded</p>
             <Link to="/">App 1</Link>

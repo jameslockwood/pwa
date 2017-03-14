@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { HeaderContainer } from './features/header/header-container';
-import loadComponentAsync from './utils/async';
+import { async } from './utils/async';
 
-const People = loadComponentAsync(import('./features/people'));
-const Time = loadComponentAsync(import('./features/time'));
+const People = async(() => import('./features/people').then(module => module.default));
+const Time = async(() => import('./features/time').then(module => module.default));
 
 export const App = () => (
     <BrowserRouter basename="/fx/">

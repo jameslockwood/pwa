@@ -5,7 +5,7 @@ import createLogger from 'redux-logger';
 import type { RootState } from 'src/types/core';
 import reducer from './reducers/root';
 import fetchPeopleAction from './actions/fetch-people';
-import persistanceFactory from './persistance';
+import persistanceFactory from './utils/persistance';
 
 export const makeStore = (appName: string) => {
     const logger = createLogger();

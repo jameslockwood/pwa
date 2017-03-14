@@ -67,7 +67,7 @@ module.exports = {
         }),
 
         // creates our base html tempalte, injects assets
-        new HtmlWebpackPlugin({ template: 'index.html' }),
+        new HtmlWebpackPlugin({ template: 'shell.html' }),
 
         // extracts our critical path css for StyleExtHtmlWebpackPlugin
         critialPathCSSPlugin,

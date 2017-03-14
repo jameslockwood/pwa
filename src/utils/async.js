@@ -1,6 +1,6 @@
 import React from 'react';
 
-const async = getComponent =>
+const asnyc = getComponent =>
     class AsyncComponent extends React.Component {
         static Component = null;
         state = { Component: AsyncComponent.Component };
@@ -27,4 +27,8 @@ const async = getComponent =>
         }
     };
 
-export default async;
+function loadComponentAsync(importPromise) {
+    return asnyc(() => importPromise.then(module => module.default));
+}
+
+export default loadComponentAsync;

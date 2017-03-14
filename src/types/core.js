@@ -10,12 +10,18 @@ export type Person = {
 
 export type PeopleList = Array<Person>;
 
+export type BootState = {
+    loading: boolean,
+    loadSuccess: boolean
+};
+
 export type People = {
     list: PeopleList,
     loading: boolean
 };
 
 export type RootState = {
+    boot: BootState,
     people: People,
     filterString: string,
     parentsOnly: boolean

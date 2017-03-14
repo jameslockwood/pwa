@@ -1,6 +1,6 @@
-function loadState(appKey) {
+function loadState() {
     try {
-        const serialized = localStorage.getItem(`${appKey}.state`);
+        const serialized = localStorage.getItem('state');
         if (serialized === null) {
             return undefined;
         }
@@ -10,21 +10,21 @@ function loadState(appKey) {
     }
 }
 
-function saveState(appKey, state) {
+function saveState(state) {
     try {
-        return localStorage.setItem(`${appKey}.state`, JSON.stringify(state));
+        return localStorage.setItem('state', JSON.stringify(state));
     } catch (e) {
         return undefined;
     }
 }
 
-export default function persistanceFactory(appKey) {
+export default function persistanceFactory() {
     return {
         load() {
-            return loadState(appKey);
+            return loadState();
         },
         save(state) {
-            return saveState(appKey, state);
+            return saveState(state);
         }
     };
 }

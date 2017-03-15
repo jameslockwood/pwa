@@ -1,19 +1,12 @@
-import './header.less';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './header.less';
 
-export const Header = props =>
-    // if (props.loading) {
-    //     return <p>Still Loading...</p>;
-    // }
-    // if (!props.loading && !props.loadSuccess) {
-    //     return <p>Failed to load</p>;
-    // }
-     (
-        <header>
-            <Link to="/">App 1</Link><Link to="/2">App 2</Link>
-        </header>
-    );
+export const Header = () => (
+    <header>
+        <Link to="/">App 1</Link><Link to="/2">App 2</Link>
+    </header>
+);
 
 Header.defaultProps = {
     loading: true,

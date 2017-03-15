@@ -6,13 +6,14 @@ import { async } from './utils/async';
 const People = async(() => import('./features/people').then(module => module.default));
 const Time = async(() => import('./features/time').then(module => module.default));
 
-export const App = (props) => (
+export const App = () => (
     <BrowserRouter basename="/fx/">
         <div className="app-container">
             <HeaderContainer />
-            <Route exact path="/" component={People} />
-            <Route path="/2" component={Time} />
-            {props.children}
+            <div className="app-content-container">
+                <Route exact path="/" component={People} />
+                <Route path="/2" component={Time} />
+            </div>
         </div>
     </BrowserRouter>
 );

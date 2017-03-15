@@ -7,6 +7,11 @@ import './app.less';
 
 const store = makeStore();
 
+const hideAndRemoveOverlay = (el) => {
+    el.classList.add('invisible');
+    setTimeout(() => el.parentNode.removeChild(el), 2000);
+};
+
 export const boot = (el) => {
     render(
         <Provider store={store}>
@@ -14,4 +19,5 @@ export const boot = (el) => {
         </Provider>,
         el
     );
+    hideAndRemoveOverlay(document.getElementById('shell-loading-overlay'));
 };

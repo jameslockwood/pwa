@@ -4,9 +4,10 @@ const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const config = require('./config.js');
 const baseWebpackConfig = require('./webpack.base.js');
+const devStylesConfig = require('./webpack.styles.js').dev;
 
-module.exports = webpackMerge(baseWebpackConfig, {
-    devtool: '#cheap-module-eval-source-map',
+module.exports = webpackMerge(baseWebpackConfig, devStylesConfig, {
+    devtool: '#cheap-module-eval-source-map', // https://webpack.js.org/configuration/devtool/
     plugins: [
         // for dev only - syncs page over multiple devices during development
         new BrowserSyncPlugin(

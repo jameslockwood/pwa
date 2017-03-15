@@ -3,13 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('./config.js');
-
-const criticalPathCSSFilename = 'ignore_as_styles_inlined_in_html';
-const criticalPathCSSRegex = /\bshell\b.(css|less|sass|scss)/;
-const critialPathCSSPlugin = new ExtractTextPlugin(criticalPathCSSFilename);
 
 module.exports = {
     context: path.resolve(__dirname, config.directories.source),
@@ -40,20 +34,6 @@ module.exports = {
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: ['syntax-dynamic-import']
                 }
-            },
-            {
-                // responsbile for loading critical path css
-                test: criticalPathCSSRegex,
-                use: critialPathCSSPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'less-loader']
-                })
-            },
-            {
-                // responsible for loading the rest of our application css
-                test: /\.(css|less)$/,
-                use: ['style-loader', 'css-loader', 'less-loader'],
-                exclude: criticalPathCSSRegex
             }
         ]
     },
@@ -67,12 +47,6 @@ module.exports = {
         }),
 
         // creates our base html tempalte, injects assets
-        new HtmlWebpackPlugin({ template: 'shell.html' }),
-
-        // extracts our critical path css for StyleExtHtmlWebpackPlugin
-        critialPathCSSPlugin,
-
-        // inlines our critical path CSS into index.html
-        new StyleExtHtmlWebpackPlugin(criticalPathCSSFilename)
+        new HtmlWebpackPlugin({ template: 'shell.html' })
     ]
 };

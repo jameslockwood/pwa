@@ -3,9 +3,10 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.js');
+const prodStylesConfig = require('./webpack.styles.js').prod;
 
-module.exports = webpackMerge(baseWebpackConfig, {
-    devtool: 'source-map',
+module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, {
+    devtool: 'source-map', // https://webpack.js.org/configuration/devtool/
     plugins: [
         new webpack.LoaderOptionsPlugin({
             minimize: true,

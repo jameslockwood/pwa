@@ -6,7 +6,7 @@ const peopleMock = require('./mocks/people.js');
 module.exports = function createMiddleware(config) {
     return (app) => {
         app.get(`/${config.name}/api/people`, (req, res) => {
-            setTimeout(() => res.json(peopleMock), Math.random() * 2000);
+            setTimeout(() => res.json(peopleMock), Math.random() * 1000);
         });
     };
 };

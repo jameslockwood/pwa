@@ -8,13 +8,11 @@ function changeFilter(state: string, action: ActionChangeFilter): string {
     return action.payload.filter;
 }
 
-const reducers = {
-    [ACTION_TYPES.CHANGE_FILTER]: changeFilter
-};
-
 export default function filterReducer(state: string = '', action: Action): string {
-    if (reducers[action.type]) {
-        return reducers[action.type](state, action);
+    switch (action.type) {
+    case ACTION_TYPES.CHANGE_FILTER:
+        return changeFilter(state, action);
+    default:
+        return state;
     }
-    return state;
 }

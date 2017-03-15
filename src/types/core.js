@@ -1,5 +1,4 @@
 // @flow
-
 export type Person = {
     name: string,
     age: number,
@@ -7,35 +6,29 @@ export type Person = {
     id: number | string,
     local?: boolean
 };
-
 export type PeopleList = Array<Person>;
 export type IdList = Array<string | number>;
-
 export type PeopleMapById = {
-    [id: string | number]: Person
+    [id: number | string]: Person
 };
-
 export type People = {
     byId: PeopleMapById,
     allIds: IdList,
     loading: boolean
 };
-
 export type BootState = {
     loading: boolean,
     loadSuccess: boolean
 };
-
 export type RootState = {
     boot: BootState,
     people: People,
     filterString: string,
     parentsOnly: boolean
 };
-
 export type Action = {
     type: string,
-    payload?: any,
+    payload: any,
     error?: boolean,
     metadata?: any
 };

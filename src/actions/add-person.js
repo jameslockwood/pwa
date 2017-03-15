@@ -14,5 +14,5 @@ export default function addPersonAction(
     children: boolean,
     local: boolean
 ): AddPersonAction {
-    return { type: ACTION_TYPES.ADD_PERSON, payload: { name, age, children, local } };
+    return { type: ACTION_TYPES.ADD_PERSON, payload: { name, age, children, local, id: 0 } };
 }

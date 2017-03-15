@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies, no-plusplus */
 
+const v4 = require('uuid').v4;
 const faker = require('faker');
 
 const people = [];
@@ -10,7 +11,7 @@ for (let i = 0; i < 10; i++) {
         name: faker.name.findName(),
         age,
         children: age > 16 && Math.random() > 0.5,
-        id: i,
+        id: v4(),
         local: false
     });
 }

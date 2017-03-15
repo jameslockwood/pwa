@@ -13,7 +13,11 @@ function addPerson(state: People, action: AddPersonAction): People {
     };
     return {
         ...state,
-        list: [...state.list, person]
+        peopleById: {
+            ...state.peopleById,
+            [person.id]: person
+        },
+        ids: [...state.ids, person.id]
     };
 }
 
@@ -25,9 +29,18 @@ function populateListRequest(state: People): People {
 }
 
 function populateList(state: People, action: FetchPeopleAction): People {
+    const newPeopleMap = {};
+    const people = action.payload.response;
+    people.forEach((person) => {
+        newPeopleMap[person.id] = person;
+    });
     return {
         loading: false,
-        list: [...state.list, ...action.payload.response]
+        peopleById: {
+            ...state.peopleById,
+            ...newPeopleMap
+        },
+        ids: [...state.ids, ...action.payload.response.map(i => i.id)]
     };
 }
 
@@ -39,7 +52,8 @@ const reducers = {
 
 const defaultState: People = {
     loading: false,
-    list: []
+    ids: [],
+    peopleById: {}
 };
 
 export default function peopleReducer(state: People = defaultState, action: Action): People {

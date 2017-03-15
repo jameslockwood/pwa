@@ -6,7 +6,7 @@ import { getVisiblePeople } from 'src/selectors/root';
 import Items from './items';
 
 const stateToProps = (state: RootState) => ({
-    list: getVisiblePeople(state, state.filterString),
+    list: getVisiblePeople(state),
     loading: state.people.loading,
     parentsOnly: state.parentsOnly
 });

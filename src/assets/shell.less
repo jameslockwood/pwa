@@ -1,16 +1,16 @@
 /* shell - contains critical path css */
+@import './variables.less';
+
 body {
     font-family: Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
     color: #ddd;
     background: #fff;
-    background: rgb(20, 214, 151);
+    background: @greenBackground;
 }
 
 .loading-container {
-    @transitionDelay: 0.35s;
-    @transitionTime: 0.2s;
     @totalTransition: calc(@transitionDelay + @transitionTime);
     transition: opacity @transitionTime @transitionDelay, transform @transitionTime @transitionDelay, max-height 0s @totalTransition;
     position: absolute;
@@ -26,7 +26,7 @@ body {
     padding: 0;
     opacity: 1;
     color: rgba(255, 255, 255, .9);
-    background: rgb(20, 214, 151);
+    background: @greenBackground;
     justify-content: center;
     align-items: center;
 

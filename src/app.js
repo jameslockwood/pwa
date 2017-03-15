@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { makeStore } from './app-store';
-import { App } from './app-router';
-import './app.less';
+import { makeStore } from './store';
+import { AppRouter } from './app-router';
+import './assets/app.less';
 
 const store = makeStore();
 
@@ -15,7 +15,7 @@ const hideAndRemoveOverlay = (el) => {
 export const boot = (el) => {
     render(
         <Provider store={store}>
-            <App />
+            <AppRouter />
         </Provider>,
         el
     );

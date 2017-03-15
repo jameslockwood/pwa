@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { HeaderContainer } from './features/header/header-container';
+import { HeaderContainer } from './components/header';
 import { async } from './utils/async';
 
-const People = async(() => import('./features/people').then(module => module.default));
-const Time = async(() => import('./features/time').then(module => module.default));
+const People = async(() => import('./components/people').then(module => module.default));
+const Time = async(() => import('./components/time').then(module => module.default));
 
-export const App = () => (
+export const AppRouter = () => (
     <BrowserRouter basename="/fx/">
         <div className="app-container">
             <HeaderContainer />
@@ -18,4 +18,4 @@ export const App = () => (
     </BrowserRouter>
 );
 
-export default App;
+export default AppRouter;

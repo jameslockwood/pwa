@@ -1,5 +1,6 @@
 import 'babel-polyfill';
-import './shell.less';
+import 'fetch-polyfill';
+import './assets/shell.less';
 
 // Application loading flow:
 // 1 - critical path styles and javascript are loaded here to allow page to render quickly.

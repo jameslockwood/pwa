@@ -5,10 +5,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./config.js');
 
+const polyfills = ['babel-polyfill', 'fetch-polyfill'];
+
 module.exports = {
     context: path.resolve(__dirname, config.directories.source),
     entry: {
-        shell: ['./shell.js']
+        shell: [...polyfills, './shell.js']
     },
     output: {
         filename: '[name]-bundle.js',

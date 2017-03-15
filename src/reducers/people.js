@@ -13,11 +13,11 @@ function addPerson(state: People, action: AddPersonAction): People {
     };
     return {
         ...state,
-        peopleById: {
-            ...state.peopleById,
+        byId: {
+            ...state.byId,
             [person.id]: person
         },
-        ids: [...state.ids, person.id]
+        allIds: [...state.allIds, person.id]
     };
 }
 
@@ -36,11 +36,11 @@ function populateList(state: People, action: FetchPeopleAction): People {
     });
     return {
         loading: false,
-        peopleById: {
-            ...state.peopleById,
+        byId: {
+            ...state.byId,
             ...newPeopleMap
         },
-        ids: [...state.ids, ...action.payload.response.map(i => i.id)]
+        allIds: [...state.allIds, ...action.payload.response.map(i => i.id)]
     };
 }
 
@@ -52,8 +52,8 @@ const reducers = {
 
 const defaultState: People = {
     loading: false,
-    ids: [],
-    peopleById: {}
+    allIds: [],
+    byId: {}
 };
 
 export default function peopleReducer(state: People = defaultState, action: Action): People {

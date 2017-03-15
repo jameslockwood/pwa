@@ -16,8 +16,8 @@ export type PeopleMapById = {
 };
 
 export type People = {
-    peopleById: PeopleMapById,
-    ids: IdList,
+    byId: PeopleMapById,
+    allIds: IdList,
     loading: boolean
 };
 

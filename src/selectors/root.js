@@ -1,4 +1,5 @@
 // @flow
+// selectors - compute derived data from the store.
 
 import type { RootState } from 'src/types/core';
 import * as peopleSelectors from './people';

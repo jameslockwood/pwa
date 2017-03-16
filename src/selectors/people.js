@@ -11,3 +11,5 @@ export const getVisiblePeople = (people: People, filter: string): PeopleList => 
     }
     return list;
 };
+
+export const getPeopleIsLoading = (people: People): boolean => people.loading;

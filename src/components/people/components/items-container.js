@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import type { RootState } from 'src/types/core';
-import { getVisiblePeople } from 'src/selectors/root';
+import * as selectors from 'src/selectors/root';
 import fetchPeople from 'src/actions/fetch-people';
 import Items from './items';
 
@@ -20,8 +20,8 @@ class Container extends Component {
 }
 
 const stateToProps = (state: RootState) => ({
-    list: getVisiblePeople(state),
-    loading: state.people.loading,
+    list: selectors.getVisiblePeople(state),
+    loading: selectors.getPeopleIsLoading(state),
     parentsOnly: state.parentsOnly
 });
 

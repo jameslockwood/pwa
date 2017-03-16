@@ -1,5 +1,6 @@
 // @flow
 
+import * as selectors from 'src/selectors/root';
 import ACTION_TYPES from './types';
 
 export type FetchPeopleAction = {
@@ -29,7 +30,12 @@ function fetchPeopleSuccessAction(response: Object): FetchPeopleAction {
 }
 
 export default function fetchPeopleAction() {
-    return function fetchPeopleDispatch(dispatch: any) {
+    // $FlowFixMe - blah
+    return function fetchPeopleDispatch(dispatch, getState) {
+        // prevent multiple requests ongoing
+        if (selectors.getPeopleIsLoading(getState())) {
+            return null;
+        }
         dispatch(fetchPeopleRequestAction());
         return fetch('/fx/api/people')
             .then(response => response.json())

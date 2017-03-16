@@ -6,6 +6,7 @@ const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./config.js');
 const webpackConfigDev = require('./webpack.config.dev.js');
+const webpackConfigDevHot = require('./webpack.config.dev.hot.js');
 const webpackConfigProd = require('./webpack.config.prod.js');
 const webpackServer = require('./webpack.server.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -34,7 +35,10 @@ function createServerTask(webpackConfig, hotReload) {
 }
 
 // enforces hot reloading by default
-gulp.task('server', () => createServerTask(webpackServer.useHotReloading(webpackConfigDev), true));
+gulp.task('server', () => createServerTask(webpackConfigDev));
+
+// server-sync enforces browsersync (runs on a different port - see webpack.server.js)
+gulp.task('server-hot', () => createServerTask(webpackServer.useHotReloading(webpackConfigDevHot), true));
 
 // server-sync enforces browsersync (runs on a different port - see webpack.server.js)
 gulp.task('server-sync', () => createServerTask(webpackServer.useBrowserSync(webpackConfigDev)));

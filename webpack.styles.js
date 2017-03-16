@@ -55,15 +55,21 @@ const CriticalPathLoader = {
 };
 
 module.exports = {
-    // Dev:  All styles extracted simply injected at runtime - works nicely with hot reload.
+
+    // default dev
+    // - extracts critical path and app styles into css files
+    // - places links to css files in <head>
     dev: {
         module: {
+            loaders: [CriticalPathLoader, AppLoaderDev]
+        },
+        plugins: [critialPathPlugin, applicationPlugin]
+    },
+
+    // dev (for hot reload):  All styles extracted simply injected at runtime
+    devHotReload: {
+        module: {
             loaders: [defaultDevLoader]
-            // - commented out below does the following:
-            // - extracts critical path and app styles into css files
-            // - places links to css files in <head>
-            // loaders: [CriticalPathLoader, AppLoaderDev]
-            // plugins: [critialPathPlugin, applicationPlugin]
         }
     },
 

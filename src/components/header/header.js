@@ -4,7 +4,7 @@ import './header.less';
 
 export const Header = () => (
     <header>
-        <Link to="/">App 1</Link><Link to="/2">App 2</Link>
+        <Link to="/">Foo</Link><Link to="/2">Bar</Link>
     </header>
 );
 

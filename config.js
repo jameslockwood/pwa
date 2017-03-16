@@ -12,16 +12,14 @@ const config = {
     // local host
     host: 'localhost',
 
+    // name of base bundle
+    entryPointName: 'shell',
+
     // path at which app will served from during development
     path: `/${pkg.name}/`,
 
     // local dev port
     port: 8080,
-
-    // browsersync options
-    browserSync: {
-        port: 3000
-    },
 
     // build and source directories
     directories: {

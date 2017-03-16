@@ -7,17 +7,19 @@ import './assets/app.less';
 
 const store = makeStore();
 
-const hideAndRemoveOverlay = (el) => {
-    el.classList.add('invisible');
-    setTimeout(() => el.parentNode.removeChild(el), 2000);
-};
+const createRoot = RootElement => (
+    <Provider store={store}>
+        <RootElement />
+    </Provider>
+);
 
-export const boot = (el) => {
-    render(
-        <Provider store={store}>
-            <AppRouter />
-        </Provider>,
-        el
-    );
-    hideAndRemoveOverlay(document.getElementById('shell-loading-overlay'));
-};
+export const boot = hostElement =>
+    new Promise((resolve) => {
+        render(createRoot(AppRouter), hostElement, resolve);
+
+        // hode module loading.  require used here due to browsersync bug
+        return module.hot &&
+            module.hot.accept('./app-router', () => {
+                render(createRoot(require('./app-router').default), hostElement); // eslint-disable-line global-require
+            });
+    });

@@ -41,7 +41,7 @@ module.exports = {
     // These settings are needed for eslint to play well with webpack resolve
     settings: {
         'import/resolver': {
-            webpack: { config: 'webpack.config.js' }
+            webpack: { config: 'webpack.config.base.js' }
         }
     }
 };

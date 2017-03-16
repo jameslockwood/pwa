@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const baseWebpackConfig = require('./webpack.base.js');
+const baseWebpackConfig = require('./webpack.config.base.js');
 const prodStylesConfig = require('./webpack.styles.js').prod;
 
 module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, {

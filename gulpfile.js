@@ -5,8 +5,9 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./config.js');
-const webpackConfigDev = require('./webpack.config.js');
+const webpackConfigDev = require('./webpack.config.dev.js');
 const webpackConfigProd = require('./webpack.config.prod.js');
+const webpackServer = require('./webpack.server.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function createBuildTask(webpackConf) {
@@ -16,18 +17,15 @@ function createBuildTask(webpackConf) {
         .pipe(gulp.dest(`${config.directories.build}/`));
 }
 
-function createServerTask(webpackConfig, simulateProduction) {
+function createServerTask(webpackConfig, hotReload) {
     const wpConfig = Object.create(webpackConfig);
-    if (!simulateProduction) {
-        wpConfig.entry.shell.unshift(
-            `webpack-dev-server/client?${config.scheme}://${config.host}:${config.port}/`
-        );
-    }
     new WebpackDevServer(webpack(wpConfig), {
         publicPath: config.path,
         https: config.https,
         proxy: config.proxy,
-        setup: config.middleware
+        setup: config.middleware,
+        historyApiFallback: true,
+        hot: !!hotReload
     }).listen(config.port, config.host, (err) => {
         if (err) {
             throw new gutil.PluginError('webpack-dev-server', err);
@@ -35,10 +33,17 @@ function createServerTask(webpackConfig, simulateProduction) {
     });
 }
 
+// enforces hot reloading by default
+gulp.task('server', () => createServerTask(webpackServer.useHotReloading(webpackConfigDev), true));
+
+// server-sync enforces browsersync (runs on a different port - see webpack.server.js)
+gulp.task('server-sync', () => createServerTask(webpackServer.useBrowserSync(webpackConfigDev)));
+
+// server-prod enforces full minifaction and sourcemaps
+gulp.task('server-prod', () => createServerTask(webpackConfigProd));
+
 gulp.task('build', ['clean'], () => createBuildTask(webpackConfigDev));
 gulp.task('build-prod', ['clean'], () => createBuildTask(webpackConfigProd));
-gulp.task('server', () => createServerTask(webpackConfigDev));
-gulp.task('server-prod', () => createServerTask(webpackConfigProd, true));
 gulp.task('analyze', ['clean'], () => {
     const webpackConf = Object.create(webpackConfigDev);
     webpackConf.plugins.push(new BundleAnalyzerPlugin());

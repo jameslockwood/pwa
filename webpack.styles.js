@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies, no-unused-vars */
 
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -39,6 +39,12 @@ const AppLoaderDev = {
     exclude: criticalPathEntryRegex
 };
 
+// *All* styles extracted simply injected at runtime - works nicely with hot reload.
+const defaultDevLoader = {
+    test: /\.(css|less)$/,
+    use: ['style-loader', 'css-loader', 'less-loader']
+};
+
 // critial path css loader (i.e. shell - barebones styles to load upfront)
 const CriticalPathLoader = {
     test: criticalPathEntryRegex,
@@ -49,14 +55,16 @@ const CriticalPathLoader = {
 };
 
 module.exports = {
-    // Dev:  All styles extracted into CSS files.
-    // - extracts critical path and app styles into css files
-    // - places links to css files in <head>
+    // Dev:  All styles extracted simply injected at runtime - works nicely with hot reload.
     dev: {
         module: {
-            loaders: [CriticalPathLoader, AppLoaderDev]
-        },
-        plugins: [critialPathPlugin, applicationPlugin]
+            loaders: [defaultDevLoader]
+            // - commented out below does the following:
+            // - extracts critical path and app styles into css files
+            // - places links to css files in <head>
+            // loaders: [CriticalPathLoader, AppLoaderDev]
+            // plugins: [critialPathPlugin, applicationPlugin]
+        }
     },
 
     // Prod: No external CSS files.

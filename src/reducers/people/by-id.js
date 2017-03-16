@@ -14,15 +14,12 @@ function addPerson(state: PeopleMapById, action: AddPersonAction): PeopleMapById
 }
 
 function populateList(state: PeopleMapById, action: FetchPeopleAction): PeopleMapById {
-    const newPeopleMap = {};
-    const people = action.payload.response;
+    const byId = {};
+    const people = action.payload;
     people.forEach((person) => {
-        newPeopleMap[person.id] = person;
+        byId[person.id] = person;
     });
-    return {
-        ...state,
-        ...newPeopleMap
-    };
+    return byId;
 }
 
 export default function peopleReducer(state: PeopleMapById = {}, action: Action): PeopleMapById {

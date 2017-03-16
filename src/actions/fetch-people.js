@@ -4,43 +4,27 @@ import ACTION_TYPES from './types';
 
 export type FetchPeopleAction = {
     type: string,
-    payload: {
-        fetching: boolean,
-        error: boolean,
-        response: any
-    }
+    payload: any
 };
 
-export function fetchPeopleRequestAction(): FetchPeopleAction {
+function fetchPeopleRequestAction(): FetchPeopleAction {
     return {
         type: ACTION_TYPES.FETCH_PEOPLE_REQUEST,
-        payload: {
-            fetching: true,
-            error: false,
-            response: null
-        }
+        payload: {}
     };
 }
 
-export function fetchPeopleFailureAction(error: Error): FetchPeopleAction {
+function fetchPeopleFailureAction(error: Error): FetchPeopleAction {
     return {
         type: ACTION_TYPES.FETCH_PEOPLE_FAILURE,
-        payload: {
-            fetching: false,
-            error: true,
-            response: error
-        }
+        payload: error
     };
 }
 
-export function fetchPeopleSuccessAction(response: Object): FetchPeopleAction {
+function fetchPeopleSuccessAction(response: Object): FetchPeopleAction {
     return {
         type: ACTION_TYPES.FETCH_PEOPLE_SUCCESS,
-        payload: {
-            fetching: false,
-            error: false,
-            response
-        }
+        payload: response
     };
 }
 

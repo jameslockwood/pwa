@@ -11,7 +11,7 @@ function addPerson(state: IdList, action: AddPersonAction): IdList {
 }
 
 function populateList(state: IdList, action: FetchPeopleAction): IdList {
-    return [...state, ...action.payload.response.map(i => i.id)];
+    return action.payload.map(i => i.id);
 }
 
 export default function peopleReducer(state: IdList = [], action: Action): IdList {

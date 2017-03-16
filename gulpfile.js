@@ -34,16 +34,17 @@ function createServerTask(webpackConfig, hotReload) {
     });
 }
 
-// enforces hot reloading by default
+// default vanilla server
 gulp.task('server', () => createServerTask(webpackConfigDev));
 
-// server-sync enforces browsersync (runs on a different port - see webpack.server.js)
-gulp.task('server-hot', () => createServerTask(webpackServer.useHotReloading(webpackConfigDevHot), true));
+// server-hot enforces enforces hot module reloading
+gulp.task('server-hot', () =>
+    createServerTask(webpackServer.useHotReloading(webpackConfigDevHot), true));
 
-// server-sync enforces browsersync (runs on a different port - see webpack.server.js)
+// server-sync enforces browsersync (server runs on a different port - see webpack.server.js)
 gulp.task('server-sync', () => createServerTask(webpackServer.useBrowserSync(webpackConfigDev)));
 
-// server-prod enforces full minifaction and sourcemaps
+// server-prod applies full minifaction and sourcemaps
 gulp.task('server-prod', () => createServerTask(webpackConfigProd));
 
 gulp.task('build', ['clean'], () => createBuildTask(webpackConfigDev));

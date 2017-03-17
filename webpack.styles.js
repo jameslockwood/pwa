@@ -1,5 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, no-unused-vars */
 
+// provides css configuration for dev, dev + hot reload, and production builds.
+
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 

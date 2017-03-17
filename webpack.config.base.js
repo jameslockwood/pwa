@@ -1,5 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
+// base config - applied to all builds
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');

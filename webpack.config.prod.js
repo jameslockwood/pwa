@@ -1,5 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
+// config applied to production builds
+
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.config.base.js');

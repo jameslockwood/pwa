@@ -1,4 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
+// applies server tooling to dev builds (browser sync and hot module reloading)
+
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');

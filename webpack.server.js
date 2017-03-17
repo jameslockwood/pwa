@@ -8,7 +8,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const config = require('./config.js');
 const path = require('path');
 
-const serverEntry = [`webpack-dev-server/client?${config.scheme}://${config.host}:${config.port}/`];
+const serverEntry = [`webpack-dev-server/client?${config.scheme}://${config.host}:${config.ports.dev}/`];
 
 module.exports = {
     useBrowserSync(webpackConfig) {
@@ -37,7 +37,7 @@ module.exports = {
                         port: 3000,
 
                         // same as webpack dev server
-                        proxy: `${config.scheme}://${config.host}:${config.port + config.path}`,
+                        proxy: `${config.scheme}://${config.host}:${config.ports.dev + config.path}`,
 
                         // prevent browser from opening automatically
                         open: false

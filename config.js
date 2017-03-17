@@ -18,8 +18,10 @@ const config = {
     // path at which app will served from during development
     path: `/${pkg.name}/`,
 
-    // local dev port
-    port: 8080,
+    ports: {
+        dev: 8080, // local dev port
+        prod: 8081 // prod port (different to stop svc worker conflicts)
+    },
 
     // build and source directories
     directories: {
@@ -27,6 +29,8 @@ const config = {
         build: './dist',
         test: './test'
     },
+
+    serviceWorkerFilename: 'service-worker.js',
 
     proxy,
 

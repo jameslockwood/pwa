@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 // base config - applied to all builds
-
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -15,8 +14,8 @@ module.exports = {
         shell: [...polyfills, './shell.js']
     },
     output: {
-        filename: '[name]-bundle.js',
-        chunkFilename: '[name]-async-chunk.js',
+        filename: '[name]-bundle-[hash].js',
+        chunkFilename: '[name]-async-chunk-[hash].js',
         path: path.resolve(__dirname, config.directories.build),
         sourceMapFilename: '[file].map'
     },

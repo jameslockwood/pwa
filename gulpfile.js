@@ -18,7 +18,7 @@ function createBuildTask(webpackConf) {
         .pipe(gulp.dest(`${config.directories.build}/`));
 }
 
-function createServerTask(webpackConfig, hotReload) {
+function createServerTask(webpackConfig, hotReload, port) {
     const wpConfig = Object.create(webpackConfig);
     new WebpackDevServer(webpack(wpConfig), {
         publicPath: config.path,
@@ -27,7 +27,7 @@ function createServerTask(webpackConfig, hotReload) {
         setup: config.middleware,
         historyApiFallback: true,
         hot: !!hotReload
-    }).listen(config.port, config.host, (err) => {
+    }).listen(port || config.ports.dev, config.host, (err) => {
         if (err) {
             throw new gutil.PluginError('webpack-dev-server', err);
         }
@@ -45,7 +45,7 @@ gulp.task('server-hot', () =>
 gulp.task('server-sync', () => createServerTask(webpackServer.useBrowserSync(webpackConfigDev)));
 
 // server-prod applies full minifaction and sourcemaps
-gulp.task('server-prod', () => createServerTask(webpackConfigProd));
+gulp.task('server-prod', () => createServerTask(webpackConfigProd, false, config.ports.prod));
 
 gulp.task('build', ['clean'], () => createBuildTask(webpackConfigDev));
 gulp.task('build-prod', ['clean'], () => createBuildTask(webpackConfigProd));

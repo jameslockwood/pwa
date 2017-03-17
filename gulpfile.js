@@ -47,13 +47,22 @@ gulp.task('server-sync', () => createServerTask(webpackServer.useBrowserSync(web
 // server-prod applies full minifaction and sourcemaps
 gulp.task('server-prod', () => createServerTask(webpackConfigProd, false, config.ports.prod));
 
+// creates a dev build - optimised for quicker builds and developer convenience (debugging)
 gulp.task('build', ['clean'], () => createBuildTask(webpackConfigDev));
+
+// creates a prod build - optimised for small file sizes, service worker also enabled
 gulp.task('build-prod', ['clean'], () => createBuildTask(webpackConfigProd));
+
+// provides in depth ananlysis of a builds various bundles and chunk sizes
 gulp.task('analyze', ['clean'], () => {
     const webpackConf = Object.create(webpackConfigDev);
     webpackConf.plugins.push(new BundleAnalyzerPlugin());
     return createBuildTask(webpackConf);
 });
+
+// cleans the build folder
 gulp.task('clean', () => del([`${config.directories.build}/**/*`]));
+
+// common aliases
 gulp.task('serve', ['server']);
 gulp.task('default', ['build']);

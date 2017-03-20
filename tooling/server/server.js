@@ -4,7 +4,7 @@ const http = require('http');
 const express = require('express');
 const proxyMiddleware = require('http-proxy-middleware');
 const proxy = require('./proxy.js');
-const config = require('../config.js');
+const config = require('../../config.js');
 const expressMiddleware = require('./middleware.js')(config);
 
 const app = express();

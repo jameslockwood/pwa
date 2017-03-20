@@ -8,7 +8,7 @@ const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
 const swPrecache = require('sw-precache');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const config = require('./config.js');
+const config = require('../config.js');
 
 exports.createBuildTask = function createBuildTask(webpackConf) {
     return (done) => {
@@ -32,7 +32,7 @@ exports.analyze = function analyze(webpackConfig) {
 };
 
 exports.createServiceWorker = function createServiceWorker(done) {
-    const rootDir = config.directories.build;
+    const buildDir = config.directories.build;
     const workerConfig = {
         cacheId: config.name,
         runtimeCaching: [
@@ -42,15 +42,15 @@ exports.createServiceWorker = function createServiceWorker(done) {
             }
         ],
         staticFileGlobs: [
-            `${rootDir}/**/*.css`,
-            `${rootDir}/**/*.html`,
-            `${rootDir}/**/*.js`,
-            `${rootDir}/*.json`
+            `${buildDir}/**/*.css`,
+            `${buildDir}/**/*.html`,
+            `${buildDir}/**/*.js`,
+            `${buildDir}/**/*.json`
         ],
-        stripPrefix: `${rootDir}/`,
+        stripPrefix: `${buildDir}/`,
         verbose: true
     };
-    swPrecache.write(path.join(rootDir, config.serviceWorkerFilename), workerConfig, done);
+    swPrecache.write(path.join(buildDir, config.serviceWorkerFilename), workerConfig, done);
 };
 
 exports.createServerTask = function createServerTask(webpackConfig, hotReload, port) {

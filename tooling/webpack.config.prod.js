@@ -4,7 +4,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const config = require('./config.js');
+const config = require('../config.js');
 const baseWebpackConfig = require('./webpack.config.base.js');
 const prodStylesConfig = require('./webpack.styles.js').prod;
 

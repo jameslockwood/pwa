@@ -1,6 +1,6 @@
 const pkg = require('./package.json');
-const middleware = require('./localhost/middleware.js');
-const proxy = require('./localhost/proxy.js');
+const middleware = require('./tooling/server/middleware.js');
+const proxy = require('./tooling/server/proxy.js');
 
 const config = {
     // project name

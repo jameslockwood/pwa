@@ -5,8 +5,8 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const config = require('./config.js');
 const path = require('path');
+const config = require('../config.js');
 
 const serverEntry = [`webpack-dev-server/client?${config.scheme}://${config.host}:${config.ports.dev}/`];
 

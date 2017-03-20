@@ -2,12 +2,12 @@ const gulp = require('gulp');
 const del = require('del');
 const runSequence = require('run-sequence');
 const shell = require('gulp-shell');
-const helpers = require('./gulpfile.helpers.js');
+const helpers = require('./tooling/gulp-helpers.js');
 const config = require('./config.js');
-const webpackConfigDev = require('./webpack.config.dev.js');
-const webpackConfigDevHot = require('./webpack.config.dev.hot.js');
-const webpackConfigProd = require('./webpack.config.prod.js');
-const webpackServer = require('./webpack.server.js');
+const webpackConfigDev = require('./tooling/webpack.config.dev.js');
+const webpackConfigDevHot = require('./tooling/webpack.config.dev.hot.js');
+const webpackConfigProd = require('./tooling/webpack.config.prod.js');
+const webpackServer = require('./tooling/webpack.server.js');
 
 // vanilla server for development
 gulp.task('server', helpers.createServerTask(webpackConfigDev));
@@ -22,7 +22,7 @@ gulp.task(
 gulp.task('server-sync', helpers.createServerTask(webpackServer.useBrowserSync(webpackConfigDev)));
 
 // applies full minifaction and sourcemaps.  it does NOT use webpack dev server, so no reloading.
-gulp.task('server-prod', ['build-prod'], shell.task('node ./localhost/server.js'));
+gulp.task('server-prod', ['build-prod'], shell.task('node ./tooling/server/server.js'));
 
 // creates a dev build - assets optimised for quicker builds and developer convenience (debugging)
 gulp.task('build', ['clean'], helpers.createBuildTask(webpackConfigDev));

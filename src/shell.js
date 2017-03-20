@@ -8,7 +8,7 @@ import serviceWorkerReg from './utils/service-worker-reg';
 // 4 - app then loads various views / features asynchronously
 
 if (process.env.NODE_ENV === 'production') {
-    serviceWorkerReg('service-worker.js');
+    serviceWorkerReg(process.env.SERVICE_WORKER_FILENAME);
 }
 
 const removeOverlay = () => {

@@ -1,16 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 // config applied to production builds
-
+const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const config = require('./config.js');
 const baseWebpackConfig = require('./webpack.config.base.js');
 const prodStylesConfig = require('./webpack.styles.js').prod;
 
 module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, {
     devtool: 'source-map', // https://webpack.js.org/configuration/devtool/
+    output: {
+        filename: '[name]-bundle-[chunkhash].js',
+        chunkFilename: '[name]-chunk-[chunkhash].js',
+        path: path.resolve(__dirname, config.directories.build),
+        sourceMapFilename: '[file].map'
+    },
     plugins: [
         new webpack.LoaderOptionsPlugin({
             minimize: true,
@@ -32,19 +37,6 @@ module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, {
                 warnings: false
             },
             comments: false
-        }),
-        // https://www.npmjs.com/package/sw-precache-webpack-plugin
-        new SWPrecacheWebpackPlugin({
-            cacheId: config.name,
-            filename: config.serviceWorkerFilename,
-            handleFetch: true,
-            runtimeCaching: [
-                {
-                    handler: 'cacheFirst',
-                    urlPattern: /(-bundle|-chunk)(-.*)[.]js$/
-                }
-            ],
-            staticFileGlobsIgnorePatterns: [/.*\.html/]
         })
     ]
 });

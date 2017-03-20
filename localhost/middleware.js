@@ -7,7 +7,7 @@ const path = require('path');
 module.exports = function createMiddleware(config) {
     return (app) => {
         app.get(`/${config.name}/api/people`, (req, res) => {
-            setTimeout(() => res.json(peopleMock), Math.random() * 1000);
+            setTimeout(() => res.json(peopleMock()), Math.random() * 1000);
         });
         // allows service worker to be served during dev (as not tracked by webpack dev server)
         app.get(`/${config.name}/${config.serviceWorkerFilename}`, (req, res) => {

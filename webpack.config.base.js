@@ -14,8 +14,8 @@ module.exports = {
         shell: [...polyfills, './shell.js']
     },
     output: {
-        filename: '[name]-bundle-[hash].js',
-        chunkFilename: '[name]-async-chunk-[hash].js',
+        filename: '[name]-bundle.js',
+        chunkFilename: '[name]-chunk.js',
         path: path.resolve(__dirname, config.directories.build),
         sourceMapFilename: '[file].map'
     },

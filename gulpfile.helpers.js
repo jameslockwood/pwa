@@ -12,7 +12,10 @@ const config = require('./config.js');
 exports.createBuildTask = function createBuildTask(webpackConf) {
     return (done) => {
         gulp
-            .src('')
+            // copy app manifest
+            .src(`${config.directories.source}/manifest.json`)
+            .pipe(gulp.dest(`${config.directories.build}/`))
+            // copy webpack build
             .pipe(webpackStream(webpackConf, webpack))
             .pipe(gulp.dest(`${config.directories.build}/`))
             .on('end', done);
@@ -29,7 +32,12 @@ exports.createServiceWorker = function createServiceWorker(done) {
                 urlPattern: /fx\/api\//
             }
         ],
-        staticFileGlobs: [`${rootDir}/**/*.css`, `${rootDir}/**/*.html`, `${rootDir}/**/*.js`],
+        staticFileGlobs: [
+            `${rootDir}/**/*.css`,
+            `${rootDir}/**/*.html`,
+            `${rootDir}/**/*.js`,
+            `${rootDir}/*.json`
+        ],
         stripPrefix: `${rootDir}/`,
         verbose: true
     };

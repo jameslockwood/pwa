@@ -1,6 +1,10 @@
 {
   "short_name": "FX",
+  "display": "standalone",
+  "orientation": "portrait",
   "name": "FX demo app",
+  "theme_color": "#14d697",
+  "background_color": "#14d697",
   "icons": [
     {
       "src": "assets/launcher.png",

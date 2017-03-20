@@ -14,8 +14,8 @@ exports.createBuildTask = function createBuildTask(webpackConf) {
     return (done) => {
         gulp
             // copy app manifest
-            .src(`${config.directories.source}/manifest.json`)
-            .pipe(gulp.dest(`${config.directories.build}/`))
+            .src(`${config.directories.source}/assets/manifest/*`)
+            .pipe(gulp.dest(`${config.directories.build}/assets/manifest/`))
             // copy webpack build
             .pipe(webpackStream(webpackConf, webpack))
             .pipe(gulp.dest(`${config.directories.build}/`))

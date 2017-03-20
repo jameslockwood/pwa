@@ -8,11 +8,20 @@ body {
     color: #ddd;
     background: #fff;
     background: @greenBackground;
+    overflow: hidden;
 }
 
 .loading-container {
+    h1 {
+        color: rgb(0, 120, 81);
+        transition: transform @transitionTime @transitionDelay;
+    }
+
+    &.invisible h1 {
+        transform: scale(1.25);
+    }
     @totalTransition: calc(@transitionDelay + @transitionTime);
-    transition: opacity @transitionTime @transitionDelay, transform @transitionTime @transitionDelay, max-height 0s @totalTransition;
+    transition: opacity @transitionTime @transitionDelay, max-height 0s @totalTransition;
     position: absolute;
     z-index: 5000;
     top: 0;
@@ -29,72 +38,10 @@ body {
     background: @greenBackground;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 
     &.invisible {
         max-height: 0;
-        transform: scale(1.25);
         opacity: 0;
-    }
-}
-
-.spinner {
-    position: relative;
-    width: 5rem;
-    height: 5rem;
-    -webkit-animation: sk-rotate 2.0s infinite linear;
-    animation: sk-rotate 2.0s infinite linear;
-    text-align: center;
-    @-webkit-keyframes sk-rotate {
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-    @keyframes sk-rotate {
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @-webkit-keyframes sk-bounce {
-        0%,
-        100% {
-            -webkit-transform: scale(.0);
-        }
-
-        50% {
-            -webkit-transform: scale(1.0);
-        }
-    }
-    @keyframes sk-bounce {
-        0%,
-        100% {
-            -webkit-transform: scale(.0);
-            transform: scale(.0);
-        }
-
-        50% {
-            -webkit-transform: scale(1.0);
-            transform: scale(1.0);
-        }
-    }
-
-    .dot1,
-    .dot2 {
-        position: absolute;
-        top: 0;
-        display: inline-block;
-        width: 60%;
-        height: 60%;
-        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-        animation: sk-bounce 2.0s infinite ease-in-out;
-        border-radius: 100%;
-        background-color: #fff;
-    }
-
-    .dot2 {
-        top: auto;
-        bottom: 0;
-        -webkit-animation-delay: -1.0s;
-        animation-delay: -1.0s;
     }
 }

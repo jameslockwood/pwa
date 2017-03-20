@@ -1,0 +1,26 @@
+{
+    "short_name": "FX",
+    "display": "standalone",
+    "orientation": "portrait",
+    "name": "FX Demo",
+    "theme_color": "#14d697",
+    "background_color": "#14d697",
+    "icons": [
+        {
+            "src": "./launcher-256.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        },
+        {
+            "src": "./launcher-128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "./launcher-96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        }
+    ],
+    "start_url": "/fx/"
+}

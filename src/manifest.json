@@ -1,0 +1,12 @@
+{
+  "short_name": "FX",
+  "name": "FX demo app",
+  "icons": [
+    {
+      "src": "assets/launcher.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    }
+  ],
+  "start_url": "/?launcher=true"
+}

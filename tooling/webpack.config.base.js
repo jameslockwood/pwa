@@ -11,7 +11,7 @@ const polyfills = ['babel-polyfill', 'fetch-polyfill'];
 module.exports = {
     context: path.resolve(__dirname, '../', config.directories.source),
     entry: {
-        shell: [...polyfills, './shell.js']
+        [config.entryPointName]: [...polyfills, './shell.js']
     },
     output: {
         filename: '[name]-bundle.js',

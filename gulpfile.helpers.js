@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
 const swPrecache = require('sw-precache');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const config = require('./config.js');
 
 exports.createBuildTask = function createBuildTask(webpackConf) {
@@ -19,6 +20,14 @@ exports.createBuildTask = function createBuildTask(webpackConf) {
             .pipe(webpackStream(webpackConf, webpack))
             .pipe(gulp.dest(`${config.directories.build}/`))
             .on('end', done);
+    };
+};
+
+exports.analyze = function analyze(webpackConfig) {
+    return (done) => {
+        const webpackConf = Object.create(webpackConfig);
+        webpackConf.plugins.push(new BundleAnalyzerPlugin());
+        return exports.createBuildTask(webpackConf)(done);
     };
 };
 

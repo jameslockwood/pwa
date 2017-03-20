@@ -13,10 +13,7 @@ const config = require('../config.js');
 exports.createBuildTask = function createBuildTask(webpackConf) {
     return (done) => {
         gulp
-            // copy app manifest
-            .src(`${config.directories.source}/assets/manifest/*`)
-            .pipe(gulp.dest(`${config.directories.build}/assets/manifest/`))
-            // copy webpack build
+            .src('')
             .pipe(webpackStream(webpackConf, webpack))
             .pipe(gulp.dest(`${config.directories.build}/`))
             .on('end', done);

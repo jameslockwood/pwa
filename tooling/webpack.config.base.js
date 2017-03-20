@@ -37,6 +37,19 @@ module.exports = {
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: ['syntax-dynamic-import']
                 }
+            },
+            {
+                // handles our images
+                test: /\.(jpg|png|svg)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[hash].[ext]'
+                }
+            },
+            {
+                // our web-app manifest file
+                test: /web-manifest.json$/,
+                loader: ['file-loader?name=[name].[ext]', 'web-app-manifest-loader']
             }
         ]
     },

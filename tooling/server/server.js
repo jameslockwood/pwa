@@ -2,13 +2,14 @@
 
 const http = require('http');
 const express = require('express');
+const compression = require('compression');
 const proxyMiddleware = require('http-proxy-middleware');
 const proxy = require('./proxy.js');
 const config = require('../../config.js');
 const expressMiddleware = require('./middleware.js')(config);
 
 const app = express();
-
+app.use(compression())
 app.use(config.path, express.static('dist'));
 app.use('/', express.static('../'));
 

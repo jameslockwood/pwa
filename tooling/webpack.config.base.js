@@ -5,7 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const config = require('../config.js');
 
-const polyfills = ['babel-polyfill', 'fetch-polyfill'];
+const polyfills = ['babel-es6-polyfill', 'fetch-polyfill'];
 
 module.exports = {
     context: path.resolve(__dirname, '../', config.directories.source),

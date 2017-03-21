@@ -7,11 +7,9 @@ import serviceWorkerReg from './utils/service-worker-reg';
 // 3 - main app then loaded asynchronously
 // 4 - app then loads various views / features asynchronously
 
-if (process.env.NODE_ENV === 'production') {
-    serviceWorkerReg(process.env.SERVICE_WORKER_FILENAME);
-}
+const worker = serviceWorkerReg(process.env.SERVICE_WORKER_FILENAME);
 
-const removeOverlay = () => {
+const removeLoadingOverlay = () => {
     const el = document.getElementById('shell-overlay');
     el.classList.add('invisible');
     setTimeout(() => el.parentNode.removeChild(el), 2000);
@@ -19,5 +17,8 @@ const removeOverlay = () => {
 
 import('./app').then((app) => {
     const hostElement = document.getElementById('app-bootstrap');
-    app.boot(hostElement).then(removeOverlay);
+    app.boot(hostElement).then((api) => {
+        removeLoadingOverlay();
+        worker.onNewContentAvailable(api.invalidate)
+    });
 });

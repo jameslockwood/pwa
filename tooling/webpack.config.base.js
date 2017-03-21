@@ -4,6 +4,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const config = require('../config.js');
 
 const polyfills = ['babel-polyfill', 'fetch-polyfill'];
@@ -69,6 +70,11 @@ module.exports = {
         }),
 
         // creates our base html tempalte, injects assets
-        new HtmlWebpackPlugin({ template: 'shell.html' })
+        new HtmlWebpackPlugin({ template: 'shell.html' }),
+
+        // 'asyncs' our initial shell scripts
+        new ScriptExtHtmlWebpackPlugin({
+            defaultAttribute: 'async'
+        })
     ]
 };

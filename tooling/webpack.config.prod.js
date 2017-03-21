@@ -7,8 +7,9 @@ const webpackMerge = require('webpack-merge');
 const config = require('../config.js');
 const baseWebpackConfig = require('./webpack.config.base.js');
 const prodStylesConfig = require('./webpack.styles.js').prod;
+const prodHtmlConfig = require('./webpack.html.js').prod;
 
-module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, {
+module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, prodHtmlConfig, {
     devtool: 'source-map', // https://webpack.js.org/configuration/devtool/
     output: {
         filename: '[name]-bundle-[chunkhash].js',

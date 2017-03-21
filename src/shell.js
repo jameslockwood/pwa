@@ -21,8 +21,3 @@ import('./app').then((app) => {
     const hostElement = document.getElementById('app-bootstrap');
     app.boot(hostElement).then(removeOverlay);
 });
-
-// handle when user is online/offline here
-const updateOnlineStatus = () => window.console.log(`user is ${navigator.onLine ? 'online' : 'offline'}`);
-window.addEventListener('online', updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);

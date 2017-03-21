@@ -6,7 +6,8 @@ import { Header } from './header';
 
 const stateToProps = (state: RootState) => ({
     loading: state.boot.loading,
-    loadSuccess: state.boot.loadSuccess
+    loadSuccess: state.boot.loadSuccess,
+    offline: state.offline
 });
 
 export const HeaderContainer = connect(stateToProps)(Header);

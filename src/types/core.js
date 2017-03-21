@@ -24,7 +24,8 @@ export type RootState = {
     boot: BootState,
     people: People,
     filterString: string,
-    parentsOnly: boolean
+    parentsOnly: boolean,
+    offline: boolean
 };
 export type Action = {
     type: string,

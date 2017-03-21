@@ -20,7 +20,7 @@ module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, prodHtmlConfi
     plugins: [
         new webpack.LoaderOptionsPlugin({
             minimize: true,
-            debug: true
+            debug: false
         }),
         new webpack.DefinePlugin({
             'process.env': {

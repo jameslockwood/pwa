@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { AppContainer } from './components/app-container';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
+import Route from 'react-router-dom/Route';
 import { HeaderContainer } from './components/header';
 import { async } from './utils/async';
 
@@ -9,13 +9,13 @@ const Time = async(() => import('./components/time').then(module => module.defau
 
 export const AppRouter = () => (
     <BrowserRouter basename="/fx/">
-        <AppContainer>
+        <div className="app-container">
             <HeaderContainer />
             <div className="app-content-container">
                 <Route exact path="/" component={People} />
                 <Route path="/2" component={Time} />
             </div>
-        </AppContainer>
+        </div>
     </BrowserRouter>
 );
 

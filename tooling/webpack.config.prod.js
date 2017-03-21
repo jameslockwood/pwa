@@ -10,7 +10,7 @@ const prodStylesConfig = require('./webpack.styles.js').prod;
 const prodHtmlConfig = require('./webpack.html.js').prod;
 
 module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, prodHtmlConfig, {
-    devtool: 'source-map', // https://webpack.js.org/configuration/devtool/
+    devtool: '#source-map', // https://webpack.js.org/configuration/devtool/
     output: {
         filename: '[name]-bundle-[chunkhash].js',
         chunkFilename: '[name]-chunk-[chunkhash].js',
@@ -37,7 +37,8 @@ module.exports = webpackMerge(baseWebpackConfig, prodStylesConfig, prodHtmlConfi
                 screw_ie8: true,
                 warnings: false
             },
-            comments: false
+            comments: false,
+            sourceMap: true
         })
     ]
 });

@@ -61,10 +61,13 @@ module.exports = {
 
         // bundles any files used in more than one place
         new webpack.optimize.CommonsChunkPlugin({
-            async: 'shared', // prefixes common async chunk files
+            async: true,
             minChunks(module, count) {
                 return count >= 2;
             }
-        })
+        }),
+
+        // removes moment locales (they're huge and not being used)
+        new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(en|zh-tw)$/)
     ]
 };

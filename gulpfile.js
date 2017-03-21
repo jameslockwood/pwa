@@ -28,9 +28,14 @@ gulp.task('server-prod', ['build-prod'], shell.task('node ./tooling/server/serve
 gulp.task('build', ['clean'], helpers.createBuildTask(webpackConfigDev));
 
 // creates a prod build - assets optimised for file size (minified), service worker included
-gulp.task('build-prod', done => runSequence('build-prod-assets', 'build-prod-svc-worker', done));
+gulp.task('build-prod', done =>
+    runSequence('build-prod-assets', 'build-prod-svc-worker', 'build-prod-minify', done));
 gulp.task('build-prod-assets', ['clean'], helpers.createBuildTask(webpackConfigProd));
-gulp.task('build-prod-svc-worker', done => helpers.createServiceWorker(done));
+gulp.task('build-prod-svc-worker', helpers.createServiceWorker());
+gulp.task('build-prod-minify', done =>
+    runSequence(['build-prod-minify-json', 'build-prod-minify-svc-worker'], done));
+gulp.task('build-prod-minify-json', helpers.minifyJson());
+gulp.task('build-prod-minify-svc-worker', helpers.minifyServiceWorker());
 
 // provides in depth ananlysis of a builds various bundles and chunk sizes
 gulp.task('analyze', ['clean'], helpers.analyze(webpackConfigDev));

@@ -7,6 +7,8 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
 const swPrecache = require('sw-precache');
+const jsMinify = require('gulp-minify');
+const jsonMinify = require('gulp-jsonminify');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const config = require('../config.js');
 
@@ -28,7 +30,38 @@ exports.analyze = function analyze(webpackConfig) {
     };
 };
 
-exports.createServiceWorker = function createServiceWorker(done) {
+// minifies assets which webpack does not control
+exports.minifyServiceWorker = function minifyServiceWorker() {
+    const buildDir = config.directories.build;
+    return (done) => {
+        gulp
+            .src([`${buildDir}/${config.serviceWorkerFilename}`])
+            .pipe(
+                jsMinify({
+                    ext: {
+                        src: '-debug.js',
+                        min: '.js'
+                    },
+                    noSource: true
+                })
+            )
+            .pipe(gulp.dest(buildDir))
+            .on('end', done);
+    };
+};
+
+exports.minifyJson = function minifyJson() {
+    const buildDir = config.directories.build;
+    return (done) => {
+        gulp
+            .src([`${buildDir}/**/*.json`])
+            .pipe(jsonMinify())
+            .pipe(gulp.dest(buildDir))
+            .on('end', done);
+    };
+};
+
+exports.createServiceWorker = function createServiceWorker() {
     const buildDir = config.directories.build;
     const workerConfig = {
         cacheId: config.name,
@@ -47,7 +80,9 @@ exports.createServiceWorker = function createServiceWorker(done) {
         stripPrefix: `${buildDir}/`,
         verbose: true
     };
-    swPrecache.write(path.join(buildDir, config.serviceWorkerFilename), workerConfig, done);
+    return (done) => {
+        swPrecache.write(path.join(buildDir, config.serviceWorkerFilename), workerConfig, done);
+    };
 };
 
 exports.createServerTask = function createServerTask(webpackConfig, hotReload, port) {

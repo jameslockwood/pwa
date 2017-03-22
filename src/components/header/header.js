@@ -1,11 +1,12 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './header.less';
 
 export const Header = (props: Object) => (
     <header className={props.offline ? 'offline' : ''}>
-        <Link to="/">Foo</Link><Link to="/2">Bar</Link>
+        <Link to="/">Async</Link>
+        <Link to="/2">Time</Link>
+        <Link to="/boxes">Boxes</Link>
     </header>
 );
 

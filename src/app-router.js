@@ -2,6 +2,7 @@ import React from 'react';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import Route from 'react-router-dom/Route';
 import { HeaderContainer } from './components/header';
+import Boxes from './components/boxes';
 import { async } from './utils/async';
 
 const People = async(() => import('./components/people').then(module => module.default));
@@ -14,6 +15,7 @@ export const AppRouter = () => (
             <div className="app-content-container">
                 <Route exact path="/" component={People} />
                 <Route path="/2" component={Time} />
+                <Route path="/boxes" component={Boxes} />
             </div>
         </div>
     </BrowserRouter>

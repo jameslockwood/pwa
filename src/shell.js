@@ -19,6 +19,8 @@ import('./app').then((app) => {
     const hostElement = document.getElementById('app-bootstrap');
     app.boot(hostElement).then((api) => {
         removeLoadingOverlay();
-        worker.onNewContentAvailable(api.invalidate)
+        worker.onNewContentAvailable(api.newContentAvailable)
+        worker.onInstalled(api.serviceWorkerInstalled)
+        worker.onActive(api.serviceWorkerActive)
     });
 });

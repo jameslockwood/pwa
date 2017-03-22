@@ -1,4 +1,8 @@
+// @flow
+
 import * as env from 'src/actions/environment';
+
+type Dispatch = () => {};
 
 // dispatches events when app goes offline and online
 const setupOfflineDispatch = (dispatch) => {
@@ -11,10 +15,12 @@ const setupOfflineDispatch = (dispatch) => {
     window.addEventListener('offline', () => dispatch(env.applicationOfflineAction()));
 };
 
-const healthDispatch = (dispatch): void => {
+const healthDispatch = (dispatch: Dispatch): Object => {
     setupOfflineDispatch(dispatch);
     return {
-        emitNewContentAvailable: () => dispatch(env.newContentAvailable())
+        emitNewContentAvailable: () => dispatch(env.newContentAvailable()),
+        emitServiceWorkerInstalled: () => dispatch(env.serviceWorkerInstalled()),
+        emitServiceWorkerActive: () => dispatch(env.serviceWorkerActive())
     };
 };
 

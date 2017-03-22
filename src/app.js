@@ -18,7 +18,9 @@ const createRoot = RootElement => (
 
 // returned to the shell once the app has initially rendered
 const api = {
-    invalidate: healthDispatcher.emitNewContentAvailable
+    newContentAvailable: healthDispatcher.emitNewContentAvailable,
+    serviceWorkerInstalled: healthDispatcher.emitServiceWorkerInstalled,
+    serviceWorkerActive: healthDispatcher.emitServiceWorkerActive
 };
 
 export const boot = hostElement =>

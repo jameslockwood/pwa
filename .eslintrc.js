@@ -1,5 +1,6 @@
 module.exports = {
     extends: ['airbnb'],
+    plugins: ['import', 'flowtype', 'jsx-a11y', 'react'],
     rules: {
         'semi': 'off',
         'no-multiple-empty-lines': 'off',
@@ -28,9 +29,15 @@ module.exports = {
         '$Keys': true
     },
     env: {
-        'browser': true
+        'browser': true,
+        commonjs: true,
+        es6: true,
+        jest: true,
+        node: true
     },
     parserOptions: {
+        ecmaVersion: 6,
+        sourceType: 'module',
         'allowImportExportEverywhere': true,
         'ecmaFeatures': {
             jsx: true,
@@ -40,7 +47,12 @@ module.exports = {
     parser: 'babel-eslint',
     // These settings are needed for eslint to play well with webpack resolve
     settings: {
+        'import/ignore': ['node_modules'],
+        'import/extensions': ['.js'],
         'import/resolver': {
+            node: {
+              extensions: ['.js', '.json'],
+            },
             webpack: { config: 'tooling/webpack.config.base.js' }
         }
     }

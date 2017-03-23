@@ -19,7 +19,8 @@ const postCssLoader = {
         plugins() {
             return [
                 require('autoprefixer')({
-                    flexbox: 'no-2009' // prevent old
+                    flexbox: 'no-2009', // prevent old
+                    browsers: ['ie >= 11', 'Chrome >= 45', 'Firefox >= 40']
                 })
             ];
         }

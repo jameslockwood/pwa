@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies, no-unused-vars, global-require */
 
 // provides css configuration for dev, dev + hot reload, and production builds.
 
@@ -11,6 +11,25 @@ const appOutputFile = 'styles.css';
 
 // critical path ENTRY POINT regex (i.e. shell.less)
 const criticalPathEntryRegex = /\bshell\b.(css|less|sass|scss)/;
+
+// post CSS loader which adds our prefixes
+const postCssLoader = {
+    loader: 'postcss-loader',
+    options: {
+        plugins() {
+            return [
+                require('autoprefixer')({
+                    flexbox: 'no-2009' // prevent old
+                })
+            ];
+        }
+    }
+};
+
+const loaderFallback = 'style-loader';
+const loaders = ['css-loader', postCssLoader, 'less-loader'];
+const loadersWithFallback = [loaderFallback, ...loaders];
+const stylesRegex = /\.(css|less)$/;
 
 // plugin extracts critical path css
 const critialPathPlugin = new ExtractTextPlugin(criticalPathOutputFile);
@@ -26,38 +45,37 @@ const inlinePlugin = new StyleExtHtmlWebpackPlugin(criticalPathOutputFile);
 
 // app css (prod) - styles are injected into html from modules at runtime
 const AppLoaderProd = {
-    test: /\.(css|less)$/,
-    use: ['style-loader', 'css-loader', 'less-loader'],
+    test: stylesRegex,
+    use: loadersWithFallback,
     exclude: criticalPathEntryRegex
 };
 
 // app css (dev) - styles extracted into stylesheet and inserted into <head>
 const AppLoaderDev = {
-    test: /\.(css|less)$/,
+    test: stylesRegex,
     use: applicationPlugin.extract({
-        fallback: 'style-loader',
-        use: ['css-loader', 'less-loader']
+        fallback: loaderFallback,
+        use: loaders
     }),
     exclude: criticalPathEntryRegex
 };
 
 // *All* styles extracted simply injected at runtime - works nicely with hot reload.
 const defaultDevLoader = {
-    test: /\.(css|less)$/,
-    use: ['style-loader', 'css-loader', 'less-loader']
+    test: stylesRegex,
+    use: loadersWithFallback
 };
 
 // critial path css loader (i.e. shell - barebones styles to load upfront)
 const CriticalPathLoader = {
     test: criticalPathEntryRegex,
     use: critialPathPlugin.extract({
-        fallback: 'style-loader',
-        use: ['css-loader', 'less-loader']
+        fallback: loaderFallback,
+        use: loaders
     })
 };
 
 module.exports = {
-
     // default dev
     // - extracts critical path and app styles into css files
     // - places links to css files in <head>

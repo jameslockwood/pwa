@@ -5,10 +5,11 @@ const path = require('path');
 const webpack = require('webpack');
 const config = require('../config.js');
 
+const context = path.resolve(__dirname, '../', config.directories.source);
 const polyfills = ['babel-es6-polyfill', 'fetch-polyfill'];
 
 module.exports = {
-    context: path.resolve(__dirname, '../', config.directories.source),
+    context,
     entry: {
         [config.entryPointName]: [...polyfills, './shell.js']
     },
@@ -21,7 +22,7 @@ module.exports = {
     resolve: {
         alias: {
             // allows us to import/require 'src/whatever'
-            src: path.resolve(__dirname, '../', config.directories.source)
+            src: context
         },
         extensions: ['.js']
     },
@@ -31,7 +32,7 @@ module.exports = {
                 // responsible for loading/transpiling our js assets
                 loader: 'babel-loader',
                 test: /\.js$/,
-                include: path.resolve(__dirname, '../', config.directories.source),
+                include: context,
                 query: {
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: ['syntax-dynamic-import']

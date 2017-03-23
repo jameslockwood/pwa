@@ -12,7 +12,12 @@ const worker = serviceWorkerReg(process.env.SERVICE_WORKER_FILENAME);
 const removeLoadingOverlay = () => {
     const el = document.getElementById('shell-overlay');
     el.classList.add('invisible');
-    setTimeout(() => el.parentNode.removeChild(el), 2000);
+    el.addEventListener(
+        'transitionend',
+        () => el.parentNode.removeChild(el),
+        { once: true },
+        false
+    );
 };
 
 import('./app').then((app) => {

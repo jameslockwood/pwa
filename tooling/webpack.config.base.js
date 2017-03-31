@@ -8,6 +8,10 @@ const config = require('../config.js');
 const context = path.resolve(__dirname, '../', config.directories.source);
 const polyfills = ['babel-es6-polyfill', 'fetch-polyfill'];
 
+function isVendor({ resource }) {
+    return resource && resource.indexOf('node_modules') >= 0 && resource.match(/\.js$/);
+}
+
 module.exports = {
     context,
     entry: {
@@ -64,7 +68,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             async: true,
             minChunks(module, count) {
-                return count >= 2;
+                return isVendor(module);
             }
         }),
 

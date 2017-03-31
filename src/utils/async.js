@@ -8,11 +8,11 @@ type LoadingProps = {
     error: Error | null,
     pastDelay: boolean
 };
-
 type LoadingOptions = Object;
 type LoadingFunction = () => void;
 
-const MyLoadingComponent = ({ isLoading, error, pastDelay }: LoadingProps) => {
+// our default loading mask when async components are loading
+const DefaultLoadingComponent = ({ isLoading, error, pastDelay }: LoadingProps) => {
     if (isLoading) {
         return pastDelay ? <div>Loading...</div> : null;
     } else if (error) {
@@ -21,11 +21,15 @@ const MyLoadingComponent = ({ isLoading, error, pastDelay }: LoadingProps) => {
     return null;
 };
 
+// defaults as per https://github.com/thejameskyle/react-loadable
 const loaderOptionDefaults = {
-    LoadingComponent: MyLoadingComponent,
+    LoadingComponent: DefaultLoadingComponent,
     delay: 200
 };
 
+// higher order component which takes either
+// 1 - options object as per react-loadable library
+// 2 - function which when invoked loads the component and returns a promise
 export default function AsyncComponent(opts: LoadingOptions | LoadingFunction) {
     let loaderOptions = {};
     if (typeof opts === 'function') {

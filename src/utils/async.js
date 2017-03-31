@@ -1,30 +1,47 @@
+// @flow
+
 import React from 'react';
+import Loadable from 'react-loadable';
 
-export const async = getComponent =>
-    class AsyncComponent extends React.Component {
-        static Component = null;
-        state = { Component: AsyncComponent.Component };
-        componentWillMount() {
-            if (!this.state.Component) {
-                let getter;
-                if (typeof getComponent !== 'function') {
-                    getter = Promise.resolve(getComponent);
-                } else {
-                    getter = getComponent;
-                }
-                getter().then((Component) => {
-                    AsyncComponent.Component = Component;
-                    this.setState({ Component });
-                });
-            }
-        }
-        render() {
-            const { Component } = this.state;
-            if (Component) {
-                return <Component {...this.props} />;
-            }
-            return null;
-        }
-    };
+type LoadingProps = {
+    isLoading: boolean,
+    error: Error | null,
+    pastDelay: boolean
+};
 
-export default async;
+type LoadingOptions = Object;
+type LoadingFunction = () => void;
+
+const MyLoadingComponent = ({ isLoading, error, pastDelay }: LoadingProps) => {
+    if (isLoading) {
+        return pastDelay ? <div>Loading...</div> : null;
+    } else if (error) {
+        return <div>Error! Component failed to load</div>;
+    }
+    return null;
+};
+
+const loaderOptionDefaults = {
+    LoadingComponent: MyLoadingComponent,
+    delay: 200
+};
+
+export default function AsyncComponent(opts: LoadingOptions | LoadingFunction) {
+    let loaderOptions = {};
+    if (typeof opts === 'function') {
+        loaderOptions = {
+            loader: opts
+        };
+    } else if (typeof opts === 'object') {
+        loaderOptions = opts;
+    } else {
+        throw new Error('Invalid options provided.  Must be function or object.');
+    }
+    if (!loaderOptions.loader) {
+        throw new Error('Must provide a loader function in options');
+    }
+    return Loadable({
+        ...loaderOptionDefaults,
+        ...loaderOptions
+    });
+}

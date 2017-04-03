@@ -1,11 +1,11 @@
 import React from 'react';
-import './boxes.less';
+import styles from './boxes.mcss';
 
 const Boxes = () => (
-    <div className="boxes">
-        <div className="container">
-            <div className="c1">
-                <div className="c-wrap">
+    <div>
+        <div className={styles.container}>
+            <div className={styles.c1}>
+                <div className={styles.cWrap}>
                     <h2>foo</h2>
                     <h2>foo</h2>
                     <h2>foo</h2>
@@ -15,10 +15,10 @@ const Boxes = () => (
                     <h2>foo</h2>
                 </div>
             </div>
-            <div className="c2">C2</div>
-            <div className="c3">C3</div>
-            <div className="c4">C4</div>
-            <div className="c5">C5</div>
+            <div className={styles.c2}>C2</div>
+            <div className={styles.c3}>C3</div>
+            <div className={styles.c4}>C4</div>
+            <div className={styles.c5}>C5</div>
         </div>
     </div>
 );

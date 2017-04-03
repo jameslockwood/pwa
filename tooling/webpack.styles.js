@@ -10,27 +10,41 @@ const criticalPathOutputFile = 'shell.css';
 const appOutputFile = 'styles.css';
 
 // critical path ENTRY POINT regex (i.e. shell.less)
-const criticalPathEntryRegex = /\bshell\b.(css|less|sass|scss)/;
+const criticalPathEntryRegex = /\bshell\b.\b(css|less|sass|scss)\b/;
+const criticalPathEntryRegexModular = /\bshell\b.\b(m)(css|less|sass|scss)\b/;
 
 // post CSS loader which adds our prefixes
-const postCssLoader = {
-    loader: 'postcss-loader',
-    options: {
-        plugins() {
-            return [
-                require('autoprefixer')({
-                    flexbox: 'no-2009', // prevent old
-                    browsers: ['ie >= 11', 'Chrome >= 45', 'Firefox >= 40']
-                })
-            ];
+const LOADERS = {
+    fallback: 'style-loader',
+    less: 'less-loader',
+    css: 'css-loader',
+    cssModular: {
+        loader: 'css-loader',
+        options: {
+            modules: true
+        }
+    },
+    postCss: {
+        loader: 'postcss-loader',
+        options: {
+            plugins() {
+                return [
+                    require('autoprefixer')({
+                        flexbox: 'no-2009', // prevent old
+                        browsers: ['ie >= 11', 'Chrome >= 45', 'Firefox >= 40']
+                    })
+                ];
+            }
         }
     }
 };
 
-const loaderFallback = 'style-loader';
-const loaders = ['css-loader', postCssLoader, 'less-loader'];
-const loadersWithFallback = [loaderFallback, ...loaders];
-const stylesRegex = /\.(css|less)$/;
+const defaultLoaders = [LOADERS.css, LOADERS.postCss, LOADERS.less];
+const modularLoaders = [LOADERS.cssModular, LOADERS.postCss, LOADERS.less];
+const defaultLoadersWithFallback = [LOADERS.fallback, ...defaultLoaders];
+const modularLoadersWithFallback = [LOADERS.fallback, ...modularLoaders];
+const stylesRegex = /\.\b(css|less)\b$/;
+const modularStylesRegex = /\.\b(m)(css|less)\b$/;
 
 // plugin extracts critical path css
 const critialPathPlugin = new ExtractTextPlugin(criticalPathOutputFile);
@@ -44,53 +58,74 @@ const applicationPlugin = new ExtractTextPlugin({
 // plugin inlines critical path css into <head>
 const inlinePlugin = new StyleExtHtmlWebpackPlugin(criticalPathOutputFile);
 
-// app css (prod) - styles are injected into html from modules at runtime
-const AppLoaderProd = {
-    test: stylesRegex,
-    use: loadersWithFallback,
-    exclude: criticalPathEntryRegex
-};
+// *All* styles extracted simply injected at runtime
+function getHotLoaders() {
+    const vanilla = {
+        test: stylesRegex,
+        use: defaultLoadersWithFallback
+    };
+    const modular = {
+        test: modularStylesRegex,
+        use: modularLoadersWithFallback
+    };
+    return [vanilla, modular];
+}
 
-// app css (dev) - styles extracted into stylesheet and inserted into <head>
-const AppLoaderDev = {
-    test: stylesRegex,
-    use: applicationPlugin.extract({
-        fallback: loaderFallback,
-        use: loaders
-    }),
-    exclude: criticalPathEntryRegex
-};
+// app css - styles are injected into html from modules at runtime
+function getAppLoaders() {
+    const vanilla = {
+        test: stylesRegex,
+        use: defaultLoadersWithFallback,
+        exclude: criticalPathEntryRegex
+    };
+    const modular = {
+        test: modularStylesRegex,
+        use: modularLoadersWithFallback,
+        exclude: criticalPathEntryRegex
+    };
+    return [vanilla, modular];
+}
 
-// *All* styles extracted simply injected at runtime - works nicely with hot reload.
-const defaultDevLoader = {
-    test: stylesRegex,
-    use: loadersWithFallback
-};
+// shell css loader (critial path - barebones styles to load upfront)
+function getShellLoaders() {
+    const vanilla = {
+        test: criticalPathEntryRegex,
+        use: critialPathPlugin.extract({
+            fallback: LOADERS.fallback,
+            use: defaultLoaders
+        })
+    };
+    const modular = {
+        test: criticalPathEntryRegexModular,
+        use: critialPathPlugin.extract({
+            fallback: LOADERS.fallback,
+            use: modularLoaders
+        })
+    };
+    return [vanilla, modular];
+}
 
-// critial path css loader (i.e. shell - barebones styles to load upfront)
-const CriticalPathLoader = {
-    test: criticalPathEntryRegex,
-    use: critialPathPlugin.extract({
-        fallback: loaderFallback,
-        use: loaders
-    })
-};
+function getLoaders() {
+    const shell = getShellLoaders();
+    const application = getAppLoaders();
+    return [...shell, ...application];
+}
 
 module.exports = {
     // default dev
-    // - extracts critical path and app styles into css files
-    // - places links to css files in <head>
+    // - extracts critical path styles then inlines into <head>
+    // - app styles NOT extracted - bundled with JS and injected into <head> at runtime
     dev: {
         module: {
-            loaders: [CriticalPathLoader, AppLoaderDev]
+            loaders: getLoaders()
         },
-        plugins: [critialPathPlugin, applicationPlugin]
+        plugins: [critialPathPlugin, inlinePlugin]
     },
 
-    // dev (for hot reload):  All styles extracted simply injected at runtime
+    // dev (for hot reload):  All styles extracted & simply injected using JS at runtime
     devHotReload: {
         module: {
-            loaders: [defaultDevLoader]
+            loaders: getHotLoaders()
         }
     },
 
@@ -99,7 +134,7 @@ module.exports = {
     // - app styles NOT extracted - bundled with JS and injected into <head> at runtime
     prod: {
         module: {
-            loaders: [CriticalPathLoader, AppLoaderProd]
+            loaders: getLoaders()
         },
         plugins: [critialPathPlugin, inlinePlugin]
     }

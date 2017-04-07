@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import type { RootState } from 'src/types/core';
+import type { RootState, Dispatch } from 'src/types/core';
 import * as selectors from 'src/selectors/root';
 import fetchPeople from 'src/actions/fetch-people';
 import Items from './items';
@@ -25,7 +25,7 @@ const stateToProps = (state: RootState) => ({
     parentsOnly: state.parentsOnly
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch: Dispatch) => ({
     fetchPeople: () => {
         dispatch(fetchPeople());
     }

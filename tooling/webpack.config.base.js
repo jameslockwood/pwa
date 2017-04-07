@@ -67,7 +67,7 @@ module.exports = {
         // bundles any files used in more than one place
         new webpack.optimize.CommonsChunkPlugin({
             async: true,
-            minChunks(module, count) {
+            minChunks(module /* , count*/) {
                 return isVendor(module);
             }
         }),

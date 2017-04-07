@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux';
-import type { RootState } from 'src/types/core';
+import type { RootState, Dispatch } from 'src/types/core';
 import changeFilter from 'src/actions/change-filter';
 import toggleParents from 'src/actions/toggle-parents';
 import addPerson from 'src/actions/add-person';
@@ -13,7 +13,7 @@ const stateToProps = (state: RootState) => ({
     loading: state.people.loading
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch: Dispatch) => ({
     onFilterChange: (filter) => {
         dispatch(changeFilter(filter));
     },

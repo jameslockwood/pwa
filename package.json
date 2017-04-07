@@ -28,6 +28,7 @@
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "faker": "^4.1.0",
     "file-loader": "^0.10.1",
+    "flow-bin": "^0.43.1",
     "gulp": "^3.9.1",
     "gulp-jsonminify": "^1.0.0",
     "gulp-minify": "0.0.15",

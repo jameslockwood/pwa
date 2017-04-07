@@ -1,4 +1,7 @@
 // @flow
+import type { Dispatch as DispatchFunction } from 'redux'
+
+export type Dispatch = DispatchFunction<any>;
 export type Person = {
     name: string,
     age: number,

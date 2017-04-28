@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies, no-plusplus, no-console */
 
+const fs = require('fs');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const path = require('path');
@@ -9,7 +10,9 @@ const WebpackDevServer = require('webpack-dev-server');
 const swPrecache = require('sw-precache');
 const jsMinify = require('gulp-minify');
 const jsonMinify = require('gulp-jsonminify');
+const PWMetrics = require('pwmetrics');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const prodServer = require('./server/server.js');
 const config = require('../config.js');
 
 exports.createBuildTask = function createBuildTask(webpackConf) {
@@ -101,5 +104,45 @@ exports.createServerTask = function createServerTask(webpackConfig, hotReload, p
             }
             done();
         });
+    };
+};
+
+exports.createProdServer = function createProdServer() {
+    return (done) => {
+        prodServer(done);
+    };
+};
+
+exports.createPerfMetrics = function createPerfMetrics() {
+    const url = `${config.scheme}://${config.host}:${config.ports.prod + config.path}`;
+    const opts = {
+        flags: {
+            runs: 1,
+            view: true,
+            expectations: true
+        },
+        expectations: {
+            ttfcp: {
+                warn: '>=1500',
+                error: '>=2000'
+            },
+            ttfmp: {
+                warn: '>=2000',
+                error: '>=3000'
+            }
+        }
+    };
+    return (done) => {
+        const pwMetrics = new PWMetrics(url, opts);
+        const filePath = `${config.directories.build}/performance.json`;
+        console.log('Running performance metrics on ', url);
+        pwMetrics
+            .start()
+            .then((res) => {
+                console.log(`Performance metrics saved to ${filePath}`);
+                fs.writeFileSync(filePath, JSON.stringify(res, null, '\t'));
+            })
+            .then(() => process.exit(0))
+            .then(done);
     };
 };
